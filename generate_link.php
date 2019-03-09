@@ -16,23 +16,21 @@ $headers = 'From: postmaster@infra.beer' . "\r\n" .
            'Reply-To: noreply@infra.beer' . "\r\n" .
            'Content-type: text/plain; charset=utf-8' . "\r\n" .
            'X-Mailer: PHP/' . phpversion();
-##########################################################
+
 switch ($_POST['user']) {
         case 'Mario':
 $username = $_POST['user'];
 $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
 $recipients = mysqli_query($db, $queryrecipients);
 
-############################################################
 $queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date) SELECT user.id, curdate() FROM user WHERE user.name LIKE '$username';";
 $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
-###########################################################
+
 $queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";
 $resultaddpendingstrikeid =  mysqli_query($db, $queryaddpendingstrikeid);
 while ($row = $resultaddpendingstrikeid->fetch_assoc()) {
     $addpendingstrikeid = $row['id'];
 }
-###########################################################
 
 while($row = mysqli_fetch_array($recipients))
 {
@@ -51,16 +49,14 @@ $username = $_POST['user'];
 $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
 $recipients = mysqli_query($db, $queryrecipients);
 
-############################################################
 $queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date) SELECT user.id, curdate() FROM user WHERE user.name LIKE '$username';";
 $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
-###########################################################
+
 $queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";
 $resultaddpendingstrikeid =  mysqli_query($db, $queryaddpendingstrikeid);
 while ($row = $resultaddpendingstrikeid->fetch_assoc()) {
     $addpendingstrikeid = $row['id'];
 }
-###########################################################
 
 while($row = mysqli_fetch_array($recipients))
 {
@@ -78,16 +74,14 @@ $username = $_POST['user'];
 $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
 $recipients = mysqli_query($db, $queryrecipients);
 
-############################################################
 $queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date) SELECT user.id, curdate() FROM user WHERE user.name LIKE '$username';";
 $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
-###########################################################
+
 $queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";
 $resultaddpendingstrikeid =  mysqli_query($db, $queryaddpendingstrikeid);
 while ($row = $resultaddpendingstrikeid->fetch_assoc()) {
     $addpendingstrikeid = $row['id'];
 }
-###########################################################
 
 while($row = mysqli_fetch_array($recipients))
 {
@@ -105,16 +99,14 @@ $username = $_POST['user'];
 $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
 $recipients = mysqli_query($db, $queryrecipients);
 
-############################################################
 $queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date) SELECT user.id, curdate() FROM user WHERE user.name LIKE '$username';";
 $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
-###########################################################
+
 $queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";
 $resultaddpendingstrikeid =  mysqli_query($db, $queryaddpendingstrikeid);
 while ($row = $resultaddpendingstrikeid->fetch_assoc()) {
     $addpendingstrikeid = $row['id'];
 }
-###########################################################
 
 while($row = mysqli_fetch_array($recipients))
 {

@@ -36,7 +36,7 @@
 		{
 			$code =  generateRandomString();
 			$to =  $row['email'];
-			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer:8080/validate.php?valcode=$code";
+			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer/validateadd.php?valcode=$code";
 			mail($to, $subject, $message, $headers);
 			$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
 			$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);
@@ -62,7 +62,7 @@
 		{
 			$code =  generateRandomString();
 			$to =  $row['email'];
-			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer:8080/validate.php?valcode=$code";
+			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer/validateadd.php?valcode=$code";
 			mail($to, $subject, $message, $headers);
 			$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
 			$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);
@@ -87,7 +87,7 @@
 		{
 			$code =  generateRandomString();
 			$to =  $row['email'];
-			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer:8080/validate.php?valcode=$code";
+			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer/validateadd.php?valcode=$code";
 			mail($to, $subject, $message, $headers);
 			$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
 			$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);
@@ -112,7 +112,7 @@
 		{
 			$code =  generateRandomString();
 			$to =  $row['email'];
-			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer:8080/validate.php?valcode=$code";
+			$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer/validateadd.php?valcode=$code";
 			mail($to, $subject, $message, $headers);
 			$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
 			$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);

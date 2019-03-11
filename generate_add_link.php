@@ -11,7 +11,7 @@
 ?>
 
 <?php
-	$subject = "Strike Validation needed";
+	$subject = "Strike Add Validation needed";
 	$headers = 'From: postmaster@infra.beer' . "\r\n" .
         	   'Reply-To: noreply@infra.beer' . "\r\n" .
           	   'Content-type: text/plain; charset=utf-8' . "\r\n" .

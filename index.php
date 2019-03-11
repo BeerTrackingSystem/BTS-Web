@@ -1,4 +1,3 @@
-<link rel="Favicon" href="favicon.ico" type="image/x-icon"/>
 <?php
 	include 'db.inc.php';
 ?>
@@ -6,6 +5,8 @@
 <html>
 	<head>
 		<title>infra beer</title>
+		<link rel="Favicon" href="favicon.ico" type="image/x-icon"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	</head>
 	<body>
 		<center><h1>infra beer club</h1></center>
@@ -14,7 +15,6 @@
 <?php 
 	include 'current_strikes.php';
 ?>
-
 
 <br>
 		<center><h2>Add Strike</h2></center>
@@ -33,5 +33,11 @@
   			<input type="submit" value="Lenny" name="user">
   			<input type="submit" value="Steffen" name="user">
 		</form>
+
+<br>
+
+<?php
+        include 'pending_strikes.php';
+?>
 	</body>
 </html>

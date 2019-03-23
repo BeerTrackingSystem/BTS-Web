@@ -8,6 +8,7 @@ Track your beer consumption!
 - Overview of the current available beer amount!
 > Don't get surprised by a empty beer stock.
 - Planned features are tracked in the issues section
+
 **Works in general with alcohol!**
 
 ## Installation

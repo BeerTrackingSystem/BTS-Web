@@ -4,5 +4,5 @@
 
 <?php
 	include 'generate_del_link.php';
-	header("Location: http://infra.beer");
+	header("Location: http://$_SERVER[HTTP_HOST]");
 ?>

@@ -12,8 +12,8 @@
 
 <?php
 	$subject = "Strike Add Validation needed";
-	$headers = 'From: postmaster@infra.beer' . "\r\n" .
-        	   'Reply-To: noreply@infra.beer' . "\r\n" .
+	$headers = 'From: postmaster@' . $_SERVER[HTTP_HOST] . "\r\n" .
+        	   'Reply-To: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
           	   'Content-type: text/plain; charset=utf-8' . "\r\n" .
           	   'X-Mailer: PHP/' . phpversion();
 
@@ -34,7 +34,7 @@
 	{
 		$code =  generateRandomString();
 		$to =  $row['email'];
-		$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://infra.beer/validateadd.php?valcode=$code";
+		$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut... \n\nhttp://$_SERVER[HTTP_HOST]/validateadd.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
 		$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);

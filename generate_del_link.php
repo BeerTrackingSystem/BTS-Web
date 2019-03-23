@@ -12,8 +12,8 @@
 
 <?php
 	$subject = "Strike Del Validation needed";
-	$headers = 'From: postmaster@infra.beer' . "\r\n" .
-        	   'Reply-To: noreply@infra.beer' . "\r\n" .
+	$headers = 'From: postmaster@' . $_SERVER[HTTP_HOST] . "\r\n" .
+        	   'Reply-To: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
           	   'Content-type: text/plain; charset=utf-8' . "\r\n" .
           	   'X-Mailer: PHP/' . phpversion();
 
@@ -34,7 +34,7 @@
 	{
 		$code =  generateRandomString();
 		$to =  $row['email'];
-		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt. Möge ihm vergeben werden:\n\nhttp://infra.beer/validatedel.php?valcode=$code";
+		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt. Möge ihm vergeben werden:\n\nhttp://$_SERVER[HTTP_HOST]/validatedel.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code) VALUES ('$delpendingstrikeid', '$code');";
 		$resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);

@@ -9,6 +9,7 @@
 	
 
 	if(mysqli_num_rows($resultcodeexisting) == "0") {
+		#Message when someone already used his validation link
 		echo "Obacht... Du hast schon auf den Link geklickt...";
 	}
 	if(mysqli_num_rows($resultcodeexisting) !== "0") {
@@ -34,6 +35,7 @@
 	if ($uservalidate1 == "0") {
 		$querysetvalidate1 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate1 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
 		$resultsetvalidate1 = mysqli_query($db, $querysetvalidate1);
+		#Message when first validation of the pending strike is done
 		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
 	} elseif ($uservalidate2 == "0") {
 		$querysetvalidate2 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate2 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
@@ -44,10 +46,11 @@
 
 		$queryvalidatepsd ="UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validated = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
      		$resultvalidatepsd = mysqli_query($db, $queryvalidatepsd);
-			
+		#Message when second/final validation of the pending strike is done	
 		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Der Strike wurde erfolgreich validiert!";
 	} else {
 		if ($validated) {
+		#Message when pending strike is already validated
 		echo "Zu langsam... Strike wurde bereits validiert!";
 		}
 	}

@@ -7,7 +7,7 @@ Track your beer consumption!
 > If he/she/it gets new beer, strikes can be deleted.
 - Overview of the current available beer amount!
 > Don't get surprised by a empty beer stock.
-
+- Planned features are tracked in the issues section
 **Works in general with alcohol!**
 
 ## Installation
@@ -19,16 +19,18 @@ Track your beer consumption!
 
 ### Installation
 1. Create database and database-user with grant on that database (name it yourway)
-2. Modify the db_structure file (exchange database-name with yours)
-3. Push the file into your database. All required tables will be created
-4. Configure your webserver your way and set "index.php" as index page
+3. Push the db_structure.sql file into your database. All required tables will be created
+4. Configure your webserver your way and set "index.php" as index page and the servername to your domain from which the site will be accessable
 5. Copy all files (except .sql file) into your web-root directory
 6. Modify the db.inc.php file (exchange database credentials with yours)
-7. Look through all files and change hostnames, links, titles etc. to your needs (shouldn't be that much - will be less in future, variables ftw)
-8. Create user in the "user" table with name, email and if needed sms-number
-9. Open a beer and try it out!
+7. Edit index.php and change titles/names according your needs
+8. Edit generate... and validate... files and change the "echo" outputs to your needs 
+8. Ofc you can exchange the favicon
+9. Create user in the "user" table with name, email and if needed sms-number
+10. Currenty there are two validations needed for a strike - If you want more validations for a strike you just have to edit the validate... files and add a new column to the "pending_strike..." tables
+10. Open a beer and try it out!
 
 ## Screenshots
-![enter image description here](https://image.prntscr.com/image/6S-5VTUaR_iWvkIrVLB1HA.png)
+![Current website view](https://image.prntscr.com/image/6S-5VTUaR_iWvkIrVLB1HA.png)
 
-Well... you won't see more atm... new feature are coming!
+Well... you won't see more atm... new features are coming!

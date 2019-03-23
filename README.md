@@ -7,6 +7,7 @@ Track your beer consumption!
 > If he/she/it gets new beer, strikes can be deleted.
 - Overview of the current available beer amount!
 > Don't get surprised by a empty beer stock.
+- Email validation needed to add/del strikes
 - Planned features are tracked in the issues section
 
 **Works in general with alcohol!**

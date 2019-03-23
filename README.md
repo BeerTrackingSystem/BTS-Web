@@ -30,4 +30,5 @@ Track your beer consumption!
 
 ## Screenshots
 ![enter image description here](https://image.prntscr.com/image/6S-5VTUaR_iWvkIrVLB1HA.png)
+
 Well... you won't see more atm... new feature are coming!

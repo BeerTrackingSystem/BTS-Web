@@ -7,7 +7,6 @@
 	$querycodeexisting = "SELECT id FROM validate_strikes_add WHERE code LIKE '$valcode';";
         $resultcodeexisting = mysqli_query($db, $querycodeexisting);
 	
-
 	if(mysqli_num_rows($resultcodeexisting) == "0") {
 		#Message when someone already used his validation link
 		echo "Obacht... Du hast schon auf den Link geklickt...";
@@ -26,6 +25,12 @@
     		$uservalidate2 = $row['uservalidate2'];
 	}
 
+	$queryuservalidate3 = "SELECT uservalidate3 FROM pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid WHERE validate_strikes_add.code LIKE '$valcode';";
+	$resultuservalidate3 = mysqli_query($db, $queryuservalidate3);
+	while ($row = $resultuservalidate3->fetch_assoc()) {
+    		$uservalidate3 = $row['uservalidate3'];
+	}
+
 	$queryvalidated = "SELECT validated FROM pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid WHERE validate_strikes_add.code LIKE '$valcode';";
         $resultvalidated = mysqli_query($db, $queryvalidated);
         while ($row = $resultvalidated->fetch_assoc()) {
@@ -33,21 +38,29 @@
         }
 
 	if ($uservalidate1 == "0") {
-		$querysetvalidate1 = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON  pending_strikes_add.id = validate_strikes_add.psaid SET uservalidate1 = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
+		$querysetvalidate1 = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET uservalidate1 = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
 		$resultsetvalidate1 = mysqli_query($db, $querysetvalidate1);
 		#Message when first validation of the pending strike is done
-		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
+		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch zwei Validierungen!";
+
 	} elseif ($uservalidate2 == "0") {
-		$querysetvalidate2 = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON  pending_strikes_add.id = validate_strikes_add.psaid SET uservalidate2 = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
+		$querysetvalidate2 = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET uservalidate2 = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
                 $resultsetvalidate2 = mysqli_query($db, $querysetvalidate2);
+		#Message when second validation of the pending strike is done	
+		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
 
-		$queryaddstrike ="UPDATE current_strikes INNER JOIN pending_strikes_add ON current_strikes.id = pending_strikes_add.userid SET currentstrikes = currentstrikes+1;";
-     		$resultaddstrike = mysqli_query($db, $queryaddstrike);
+	} elseif ($uservalidate3 == "0") {
+                $querysetvalidate3 = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET uservalidate3 = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
+                $resultsetvalidate3 = mysqli_query($db, $querysetvalidate3);
 
-		$queryvalidatepsa ="UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON  pending_strikes_add.id = validate_strikes_add.psaid SET validated = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
-     		$resultvalidatepsa = mysqli_query($db, $queryvalidatepsa);
-		#Message when second/final validation of the pending strike is done	
-		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Der Strike wurde erfolgreich validiert!";
+                $queryaddstrike ="UPDATE current_strikes INNER JOIN pending_strikes_add ON current_strikes.userid = pending_strikes_add.userid INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET currentstrikes = currentstrikes+1; ";
+                $resultaddstrike = mysqli_query($db, $queryaddstrike);
+
+                $queryvalidatepsa ="UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET validated = '1' WHERE validate_strikes_add.code LIKE '$valcode';";
+                $resultvalidatepsa = mysqli_query($db, $queryvalidatepsa);
+                #Message when third/final validation of the pending strike is done
+                echo "Validation 3 wurde mit dem Code $valcode erfolgreich durchgeführt! Der Strike wurde erfolgreich validiert!";
+
 	} else {
 		if ($validated) {
 		#Message when pending strike is already validated

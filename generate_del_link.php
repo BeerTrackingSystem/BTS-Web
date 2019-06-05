@@ -35,7 +35,7 @@
 		$code =  generateRandomString();
 		$to =  $row['email'];
 		#A few nice words to say when a strike deletion must be validated - don't change the link at the end!
-		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt. Möge ihm vergeben werden:\n\nhttp://$_SERVER[HTTP_HOST]/validatedel.php?valcode=$code";
+		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt. Möge ihm vergeben werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code) VALUES ('$delpendingstrikeid', '$code');";
 		$resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);

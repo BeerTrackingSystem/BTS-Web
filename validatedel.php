@@ -54,8 +54,20 @@
 		$querysetvalidate3 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate3 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
                 $resultsetvalidate3 = mysqli_query($db, $querysetvalidate3);
 
-		$querydelstrike ="UPDATE current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET currentstrikes = currentstrikes-5;";
-     		$resultdelstrike = mysqli_query($db, $querydelstrike);
+		$querycurrentstrikes = "Select currentstrikes FROM current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code LIKE '$valcode';";
+		$resultcurrentstrikes = mysqli_query($db, $querycurrentstrikes);
+		while ($row = $resultcurrentstrikes->fetch_assoc()) {
+                	$currentstrikes = $row['currentstrikes'];
+        	}
+
+		if ($currentstrikes >= "5"){
+			$querydelstrike = "UPDATE current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET currentstrikes = currentstrikes-5 WHERE validate_strikes_del.code LIKE '$valcode';";
+     			$resultdelstrike = mysqli_query($db, $querydelstrike);
+		}
+		else {
+			$querydelremainingstrike = "UPDATE current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET currentstrikes = '0' WHERE validate_strikes_del.code LIKE '$valcode';";
+		$resultdelremainingstrike = mysqli_query($db, $querydelremainingstrike);
+		}
 
 		$queryvalidatepsd ="UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validated = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
      		$resultvalidatepsd = mysqli_query($db, $queryvalidatepsd);

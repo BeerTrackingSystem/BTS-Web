@@ -13,7 +13,7 @@ while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
 echo "<td>" . $row['name'] . "</td>";
-echo "<td>" . $row['currentstrikes'] . "</td>";
+echo "<td align='center'>" . $row['currentstrikes'] . "</td>";
 echo "</tr>";
 }
 echo "</table>";

@@ -33,6 +33,6 @@ Track your beer consumption!
 10. Open a beer and try it out!
 
 ## Screenshots
-![Current website view](https://image.prntscr.com/image/6S-5VTUaR_iWvkIrVLB1HA.png)
+![Current website view](https://image.prntscr.com/image/lojgjiYkTKW2cyFA6rdvNg.png)
 
 Well... you won't see more atm... new features are coming!

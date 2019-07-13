@@ -3,7 +3,7 @@ $queryuser = "SELECT name FROM user;";
 $resultuser = mysqli_query($db, $queryuser);
 ?>
 <br>
-                <center><h2>Add Strike</h2></center>
+                <center><h2>Add Strike</h2>
                 <form action="/add_strikes.php" method="post">
                         <?php
                                 while($row = mysqli_fetch_array($resultuser))
@@ -12,10 +12,10 @@ $resultuser = mysqli_query($db, $queryuser);
                                         echo " ";
                                 }
                         ?>
-                </form>
+                </form></center>
 
 <br>
-                <center><h2>Del Strike</h2></center>
+                <center><h2>Del Strike</h2>
                 <form action="/del_strikes.php" method="post">
                          <?php
                                 $resultuser = mysqli_query($db, $queryuser);
@@ -25,7 +25,7 @@ $resultuser = mysqli_query($db, $queryuser);
                                         echo " ";
                                 }
                         ?>
-                </form>
+                </form></center>
 
 <br>
 

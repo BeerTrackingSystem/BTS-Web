@@ -15,7 +15,7 @@ echo "<center><table border='1'>
 <th>Validierung 2</th>
 <th>Validierung 3</th>
 <th>Remove</th>
-</tr></center>";
+</tr>";
 
 while($row = mysqli_fetch_array($resultpendingstrikesadd))
 {
@@ -28,7 +28,7 @@ echo "<td>" . $row['uservalidate3'] . "</td>";
 echo "<td> <form action='/del_add_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
 echo "</tr>";
 }
-echo "</table>";
+echo "</table></center>";
 
 
 echo "<center><h2>Pending Del</h2></center>";
@@ -41,7 +41,7 @@ echo "<center><table border='1'>
 <th>Validierung 2</th>
 <th>Validierung 3</th>
 <th>Remove</th>
-</tr></center>";
+</tr>";
 
 while($row = mysqli_fetch_array($resultpendingstrikesdel))
 {
@@ -54,5 +54,5 @@ echo "<td>" . $row['uservalidate3'] . "</td>";
 echo "<td> <form action='/del_del_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
 echo "</tr>";
 }
-echo "</table>";
+echo "</table></center>";
 ?>

@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<center><h1>infra beer club</h1></center>
+		<center><h3>MotD: <?php include 'motd.php'; ?></h3></center>
 
 	<center>
 	<table border="1" cellspacing="10">

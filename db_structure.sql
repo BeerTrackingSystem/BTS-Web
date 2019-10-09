@@ -1,8 +1,8 @@
--- MySQL dump 10.14  Distrib 5.5.60-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.64-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: infrabeer
 -- ------------------------------------------------------
--- Server version	5.5.60-MariaDB
+-- Server version	5.5.64-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -44,6 +44,23 @@ CREATE TABLE `current_strikes` (
   KEY `userid` (`userid`),
   CONSTRAINT `current_strikes_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `motd`
+--
+
+DROP TABLE IF EXISTS `motd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `motd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `change` date DEFAULT NULL,
+  `quoteid` int(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_motd_quotes` (`quoteid`),
+  CONSTRAINT `fk_motd_quotes` FOREIGN KEY (`quoteid`) REFERENCES `quotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +121,7 @@ CREATE TABLE `pending_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_add_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +143,21 @@ CREATE TABLE `pending_strikes_del` (
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_del_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `quotes`
+--
+
+DROP TABLE IF EXISTS `quotes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `quotes` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `quote` varchar(255) DEFAULT NULL,
+  `lastused` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +224,7 @@ CREATE TABLE `validate_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `validate_strikes_add_ibfk_2_idx` (`psaid`),
   CONSTRAINT `validate_strikes_add_ibfk_2` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +241,7 @@ CREATE TABLE `validate_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `psdid` (`psdid`),
   CONSTRAINT `validate_strikes_del_ibfk_2` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -221,4 +253,4 @@ CREATE TABLE `validate_strikes_del` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-13 20:59:00
+-- Dump completed on 2019-10-10  0:26:49

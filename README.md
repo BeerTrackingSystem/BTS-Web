@@ -8,6 +8,7 @@ Track your beer consumption!
 - Overview of the current available beer amount!
 > Don't get surprised by a empty beer stock.
 - Email validation needed to add/del strikes
+- Display a daily changing MotD
 - Planned features are tracked in the issues section
 
 **Works in general with alcohol!**
@@ -30,9 +31,10 @@ Track your beer consumption!
 8. Ofc you can exchange the favicon
 9. Create user in the "user" table with name, email and if needed sms-number
 10. Currenty there are two validations needed for a strike - If you want more validations for a strike you just have to edit the validate... files and add a new column to the "pending_strike..." tables
-10. Open a beer and try it out!
+11. Add quotes in the "quotes" table
+12. Open a beer and try it out!
 
 ## Screenshots
-![Current website view](https://image.prntscr.com/image/lojgjiYkTKW2cyFA6rdvNg.png)
+![Current website view](https://image.prntscr.com/image/GZw3FT2PSDyG6bL-kI9XHg.png)
 
 Well... you won't see more atm... new features are coming!

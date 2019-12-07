@@ -32,6 +32,12 @@
     		$uservalidate3 = $row['uservalidate3'];
 	}
 
+	$queryuservalidate4 = "SELECT uservalidate4 FROM pending_strikes_del INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code LIKE '$valcode';";
+	$resultuservalidate4 = mysqli_query($db, $queryuservalidate4);
+	while ($row = $resultuservalidate4->fetch_assoc()) {
+    		$uservalidate4 = $row['uservalidate4'];
+	}
+
 	$queryvalidated = "SELECT validated FROM pending_strikes_del INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code LIKE '$valcode';";
         $resultvalidated = mysqli_query($db, $queryvalidated);
         while ($row = $resultvalidated->fetch_assoc()) {
@@ -42,17 +48,23 @@
 		$querysetvalidate1 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate1 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
 		$resultsetvalidate1 = mysqli_query($db, $querysetvalidate1);
 		#Message when first validation of the pending strike is done
-		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch zwei Validierungen!";
+		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch drei Validierungen!";
 
 	} elseif ($uservalidate2 == "0") {
 		$querysetvalidate2 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate2 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
                 $resultsetvalidate2 = mysqli_query($db, $querysetvalidate2);
 		#Message when second/final validation of the pending strike is done	
-		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
+		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch zwei Validierungen!";
 
 	} elseif ($uservalidate3 == "0") {
-		$querysetvalidate3 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate3 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
+                $querysetvalidate3 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate3 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
                 $resultsetvalidate3 = mysqli_query($db, $querysetvalidate3);
+                #Message when second/final validation of the pending strike is done
+                echo "Validation 3 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
+
+	} elseif ($uservalidate4 == "0") {
+		$querysetvalidate4 = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET uservalidate4 = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
+                $resultsetvalidate4 = mysqli_query($db, $querysetvalidate4);
 
 		$querycurrentstrikes = "Select currentstrikes FROM current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code LIKE '$valcode';";
 		$resultcurrentstrikes = mysqli_query($db, $querycurrentstrikes);
@@ -72,7 +84,7 @@
 		$queryvalidatepsd ="UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validated = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
      		$resultvalidatepsd = mysqli_query($db, $queryvalidatepsd);
 		#Message when third/final validation of the pending strike is done	
-		echo "Validation 3 wurde mit dem Code $valcode erfolgreich durchgeführt! Der Strike wurde erfolgreich validiert!";
+		echo "Validation 4 wurde mit dem Code $valcode erfolgreich durchgeführt! Der Strike wurde erfolgreich validiert!";
 	} else {
 		if ($validated) {
 		#Message when pending strike is already validated

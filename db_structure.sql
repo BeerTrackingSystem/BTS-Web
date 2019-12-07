@@ -39,11 +39,11 @@ DROP TABLE IF EXISTS `current_strikes`;
 CREATE TABLE `current_strikes` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
-  `currentstrikes` int(3) DEFAULT NULL,
+  `currentstrikes` int(3) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `current_strikes_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE `motd` (
   PRIMARY KEY (`id`),
   KEY `fk_motd_quotes` (`quoteid`),
   CONSTRAINT `fk_motd_quotes` FOREIGN KEY (`quoteid`) REFERENCES `quotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,11 +76,12 @@ CREATE TABLE `pending_del_strikes_add` (
   `uservalidate1` tinyint(1) DEFAULT '0',
   `uservalidate2` tinyint(1) DEFAULT '0',
   `uservalidate3` tinyint(1) DEFAULT '0',
+  `uservalidate4` tinyint(1) DEFAULT '0',
   `validated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_add_pending_strikes_add` (`psaid`),
   CONSTRAINT `fk_pending_del_strikes_add_pending_strikes_add` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,11 +97,12 @@ CREATE TABLE `pending_del_strikes_del` (
   `uservalidate1` tinyint(1) DEFAULT '0',
   `uservalidate2` tinyint(1) DEFAULT '0',
   `uservalidate3` tinyint(1) DEFAULT '0',
+  `uservalidate4` tinyint(1) DEFAULT '0',
   `validated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_del_pending_strikes_del` (`psdid`),
   CONSTRAINT `fk_pending_del_strikes_del_pending_strikes_del` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,11 +119,13 @@ CREATE TABLE `pending_strikes_add` (
   `uservalidate1` tinyint(1) DEFAULT '0',
   `uservalidate2` tinyint(1) DEFAULT '0',
   `uservalidate3` tinyint(1) DEFAULT '0',
+  `uservalidate4` tinyint(1) DEFAULT '0',
   `validated` tinyint(1) DEFAULT '0',
+  `reason` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_add_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,11 +142,13 @@ CREATE TABLE `pending_strikes_del` (
   `uservalidate1` tinyint(1) DEFAULT '0',
   `uservalidate2` tinyint(1) DEFAULT '0',
   `uservalidate3` tinyint(1) DEFAULT '0',
+  `uservalidate4` tinyint(1) DEFAULT '0',
   `validated` tinyint(1) DEFAULT '0',
+  `reason` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_del_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +163,7 @@ CREATE TABLE `quotes` (
   `quote` varchar(255) DEFAULT NULL,
   `lastused` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +179,7 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `sms` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +196,7 @@ CREATE TABLE `validate_del_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `fk_validate_del_strikes_add_pending_del_strikes_add` (`pdsaid`),
   CONSTRAINT `fk_validate_del_strikes_add_pending_del_strikes_add` FOREIGN KEY (`pdsaid`) REFERENCES `pending_del_strikes_add` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +213,7 @@ CREATE TABLE `validate_del_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `fk_validate_del_strikes_del_pending_del_strikes_del` (`pdsdid`),
   CONSTRAINT `fk_validate_del_strikes_del_pending_del_strikes_del` FOREIGN KEY (`pdsdid`) REFERENCES `pending_del_strikes_del` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +230,7 @@ CREATE TABLE `validate_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `validate_strikes_add_ibfk_2_idx` (`psaid`),
   CONSTRAINT `validate_strikes_add_ibfk_2` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +247,7 @@ CREATE TABLE `validate_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `psdid` (`psdid`),
   CONSTRAINT `validate_strikes_del_ibfk_2` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -253,4 +259,4 @@ CREATE TABLE `validate_strikes_del` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-10  0:26:49
+-- Dump completed on 2019-12-07 19:40:02

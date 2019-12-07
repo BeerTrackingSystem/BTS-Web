@@ -42,7 +42,7 @@
                 $code =  generateRandomString();
                 $to =  $row['email'];
                 #A few words to say why die pending strike should be removed
-                $message = "Der Strike von $username soll gelöscht werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeladd.php?valcode=$code";
+                $message = "Der Pending-Strike von $username soll gelöscht werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeladd.php?valcode=$code";
                 mail($to, $subject, $message, $headers);
                 $queryaddvalidatecode = "INSERT INTO validate_del_strikes_add (pdsaid, code) VALUES ('$addpendingstrikeid', '$code');";
                 $resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);

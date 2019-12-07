@@ -10,6 +10,7 @@ Track your beer consumption!
 - Email validation needed to add/del strikes
 - Display a daily changing MotD
 - Planned features are tracked in the issues section
+- Admin-Panel (Creating user, add quotes, change motd)
 
 **Works in general with alcohol!**
 

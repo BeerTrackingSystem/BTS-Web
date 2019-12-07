@@ -37,6 +37,12 @@
     		$uservalidate3 = $row['uservalidate3'];
 	}
 
+	$queryuservalidate4 = "SELECT uservalidate4 FROM pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid WHERE validate_del_strikes_add.code LIKE '$valcode';";
+	$resultuservalidate4 = mysqli_query($db, $queryuservalidate4);
+	while ($row = $resultuservalidate4->fetch_assoc()) {
+    		$uservalidate4 = $row['uservalidate4'];
+	}
+
 	$queryvalidated = "SELECT validated FROM pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid WHERE validate_del_strikes_add.code LIKE '$valcode';";
         $resultvalidated = mysqli_query($db, $queryvalidated);
         while ($row = $resultvalidated->fetch_assoc()) {
@@ -47,7 +53,7 @@
 		$querysetvalidate1 = "UPDATE pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid SET uservalidate1 = '1' WHERE validate_del_strikes_add.code LIKE '$valcode';";
 		$resultsetvalidate1 = mysqli_query($db, $querysetvalidate1);
 		#Message when first validation of the pending strike is done
-		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch zwei Validierungen!";
+		echo "Validation 1 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch drei Validierungen!";
 
                 $querydelcode = "DELETE FROM validate_del_strikes_add WHERE code LIKE '$valcode';";
                 $resultdelcode = mysqli_query($db, $querydelcode);
@@ -56,7 +62,7 @@
 		$querysetvalidate2 = "UPDATE pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid SET uservalidate2 = '1' WHERE validate_del_strikes_add.code LIKE '$valcode';";
                 $resultsetvalidate2 = mysqli_query($db, $querysetvalidate2);
 		#Message when second validation of the pending strike is done	
-		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
+		echo "Validation 2 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch zwei Validierungen!";
 
 		$querydelcode = "DELETE FROM validate_del_strikes_add WHERE code LIKE '$valcode';";
         	$resultdelcode = mysqli_query($db, $querydelcode);
@@ -64,7 +70,15 @@
 	} elseif ($uservalidate3 == "0") {
                 $querysetvalidate3 = "UPDATE pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid SET uservalidate3 = '1' WHERE validate_del_strikes_add.code LIKE '$valcode';";
                 $resultsetvalidate3 = mysqli_query($db, $querysetvalidate3);
+		#Message when second validation of the pending strike is done
+                echo "Validation 3 wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlt noch eine Validierung!";
+
+                $querydelcode = "DELETE FROM validate_del_strikes_add WHERE code LIKE '$valcode';";
+                $resultdelcode = mysqli_query($db, $querydelcode);
 		
+	} elseif ($uservalidate4 == "0") {
+                $querysetvalidate4 = "UPDATE pending_del_strikes_add INNER JOIN validate_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid SET uservalidate4 = '1' WHERE validate_del_strikes_add.code LIKE '$valcode';";
+                $resultsetvalidate4 = mysqli_query($db, $querysetvalidate4);
 
                 $querydelvalstrikeadd = "DELETE FROM validate_strikes_add WHERE psaid LIKE '$psaid';";
                 $resultdelvalstrikeadd = mysqli_query($db, $querydelvalstrikeadd);
@@ -84,7 +98,7 @@
 	} else {
 		if ($validated) {
 		#Message when pending strike is already validated
-		echo "Zu langsam... Strike wurde bereits validiert!";
+		echo "Zu langsam... Pending-Strike wurde bereits validiert!";
 		}
 	}
 	}

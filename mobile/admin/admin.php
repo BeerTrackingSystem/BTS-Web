@@ -80,28 +80,5 @@ Change quote:
         </table>
 </form>
 
-<br><br>
-<form action="./move_user2veteran.php" method="post">
-Move User to Veteran:
-<br><br>
-	<table>
-		<tr>
-			<td>Name:</td>
-			<td><input type='text' name='name' style='width: 70px;'></td>
-		</tr>
-
-		<tr>		
-			<td> Neue EMail:</td>
-			<td><input type='text' name='email' style='width: 250px;'></td>
-		</tr>
-	
-		<tr>
-		</tr>
-		<tr>
-			<td colspan='2'><input type='submit' value='Create'></td>
-		</tr>
-	</table>
-
-</form>
 </body>
 </html>

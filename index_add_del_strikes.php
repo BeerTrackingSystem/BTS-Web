@@ -1,5 +1,5 @@
 <?php
-$queryuser = "SELECT name FROM user;";
+$queryuser = "SELECT name FROM user WHERE veteran = 0;";
 $resultuser = mysqli_query($db, $queryuser);
 ?>
 <br>

@@ -72,9 +72,6 @@ Change quote:
                 </tr>
 
                 <tr>
-                </tr>
-
-                <tr>
                         <td colspan='2'><input type='submit' value='Change'></td>
                 </tr>
         </table>
@@ -91,12 +88,15 @@ Move User to Veteran:
 		</tr>
 
 		<tr>		
-			<td> Neue EMail:</td>
+			<td>Neue EMail:</td>
 			<td><input type='text' name='email' style='width: 250px;'></td>
 		</tr>
 	
-		<tr>
+		<tr>		
+			<td>Password</td>
+			<td><input type='text' name='password' style='width: 250px;'></td>
 		</tr>
+
 		<tr>
 			<td colspan='2'><input type='submit' value='Move'></td>
 		</tr>

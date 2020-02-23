@@ -10,7 +10,11 @@ Track your beer consumption!
 - Email validation needed to add/del strikes
 - Display a daily changing MotD
 - Planned features are tracked in the issues section
-- Admin-Panel (Creating user, add quotes, change motd)
+- Veterans!
+> When people are not available anymore, they can be moved to veterans
+> veterans section whith login to add a visit when they are in the area
+- Admin-Panel (Creating user, add quotes, change motd, move user2veteran)
+- Seperated mobile view with less features (currently just no veteran)
 
 **Works in general with alcohol!**
 
@@ -23,6 +27,7 @@ Track your beer consumption!
 
 ### Installation
 1. Create database and database-user with grant on that database (name it yourway)
+2. Edit the database name in db_strucuture.sql to your needs
 3. Push the db_structure.sql file into your database. All required tables will be created
 4. Configure your webserver your way and set "index.php" as index page and the servername to your domain from which the site will be accessable
 5. Copy all files (except .sql file) into your web-root directory
@@ -36,6 +41,4 @@ Track your beer consumption!
 12. Open a beer and try it out!
 
 ## Screenshots
-![Current website view](https://image.prntscr.com/image/GZw3FT2PSDyG6bL-kI9XHg.png)
-
-Well... you won't see more atm... new features are coming!
+![Current website view](https://image.prntscr.com/image/uscg6jmJTC2gBo110exBiw.png)

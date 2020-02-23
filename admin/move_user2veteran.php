@@ -6,7 +6,9 @@
 	$username = $_POST['name'];
 	$email = $_POST['email'];
 
-	$queryaddveteran = "INSERT INTO veterans (name, email) VALUES ('$username', '$email');";
+	$password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+
+	$queryaddveteran = "INSERT INTO veterans (name, email, password) VALUES ('$username', '$email','$password');";
         $addveteran = mysqli_query($db, $queryaddveteran);
 
 	$queryupdateuser = "UPDATE user SET veteran = '1' WHERE name LIKE '$username';";

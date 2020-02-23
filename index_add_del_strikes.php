@@ -2,7 +2,6 @@
 $queryuser = "SELECT name FROM user WHERE veteran = 0;";
 $resultuser = mysqli_query($db, $queryuser);
 ?>
-<br>
 <center>
 <table border="0" cellspacing="30">
 <tr>

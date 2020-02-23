@@ -7,7 +7,6 @@
 		<title>infra beer</title>
 		<link rel="Favicon" href="favicon.ico" type="image/x-icon"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link rel="stylesheet" type="text/css" href="clippy/src/clippy.css" media="all">
 	</head>
 	<body>
 		<center><h1>infra beer club</h1></center>

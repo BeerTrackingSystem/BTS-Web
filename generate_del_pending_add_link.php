@@ -12,7 +12,7 @@
 
 <?php
         $subject = "Delete Pending-Strike-Add - Validation needed";
-        $headers = 'From: postmaster@' . $_SERVER[HTTP_HOST] . "\r\n" .
+        $headers = 'From: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
                    'Reply-To: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
                    'Content-type: text/plain; charset=utf-8' . "\r\n" .
                    'X-Mailer: PHP/' . phpversion();
@@ -25,10 +25,11 @@
 	$username = $row['name'];
 	}
 
-        $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
+        $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
         $recipients = mysqli_query($db, $queryrecipients);
+	$recipients_count = mysqli_num_rows($recipients);
 
-        $queryaddpendingstrike = "INSERT INTO pending_del_strikes_add (psaid) VALUE ('$psaid') ;";
+        $queryaddpendingstrike = "INSERT INTO pending_del_strikes_add (psaid, validations_needed) VALUE ('$psaid', $recipients_count) ;";
         $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
 
         $queryaddpendingstrikeid = "SELECT id FROM pending_del_strikes_add ORDER BY pending_del_strikes_add.id DESC LIMIT 1;";

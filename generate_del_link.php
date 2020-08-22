@@ -20,10 +20,11 @@
 	$username = $_POST['user'];
 	$reason = $_POST['reason'];
 
-	$queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
+	$queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
 	$recipients = mysqli_query($db, $queryrecipients);
+	$recipients_count = mysqli_num_rows($recipients);
 
-	$querydelpendingstrike = "INSERT INTO pending_strikes_del (userid, date, reason) SELECT user.id, curdate(), '$reason' FROM user WHERE user.name LIKE '$username';";
+	$querydelpendingstrike = "INSERT INTO pending_strikes_del (userid, date, validations_needed, reason) SELECT user.id, curdate(), $recipients_count, '$reason' FROM user WHERE user.name LIKE '$username';";
 	$resultdelpendingstrike =  mysqli_query($db, $querydelpendingstrike);
 
 	$querydelpendingstrikeid = "SELECT id FROM pending_strikes_del ORDER BY pending_strikes_del.id DESC LIMIT 1;";
@@ -37,7 +38,7 @@
 		$code =  generateRandomString();
 		$to =  $row['email'];
 		#A few nice words to say when a strike deletion must be validated - don't change the link at the end!
-		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt: $reason \n\n Möge ihm vergeben werden: http://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
+		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt: $reason \n\nMöge ihm vergeben werden: http://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code) VALUES ('$delpendingstrikeid', '$code');";
 		$resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);

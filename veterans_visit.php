@@ -6,9 +6,12 @@
 <center>
 <table border=1>
 	<tr>
-		<th colspan="2"><h2>Veteran Section<h2></th>
+		<th colspan="3"><h2>Veterans<h2></th>
 	</tr>
 	<tr>
+		<td valign="top">
+			<?php include 'veterans_list.php'; ?>
+		</td>
 		<td>
 			<?php
 				if (isset($_COOKIE['veteran']) && strpos($_COOKIE['veteran'], 'yes') !== false)	
@@ -23,9 +26,9 @@
     				}
 				else
 				{
-					echo '<form action=".\validatelogin.php" method="post">
-        				<input type="text" id="name" name="name" placeholder="Name"><br><br>
-        				<input type="password" id="password" name="password" placeholder="Passwort"><br><br>
+					echo '<form action=".\validateveteranlogin.php" method="post">
+        				<input type="text" id="name" name="name" placeholder="Name" required><br><br>
+        				<input type="password" id="password" name="password" placeholder="Passwort" required><br><br>
         				<input type="submit" name="veterans-login" value="Login" />
 					</form>';
 				}

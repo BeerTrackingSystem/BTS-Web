@@ -33,7 +33,6 @@
 		while($row = mysqli_fetch_array($recipients))
         	{
                 	$to =  $row['email'];
-                	#A few nice words to say when a new strike needs to be validated - don't change the link at the end!
                 	$message = "Aufgepasst!\n\n$username hat seinen Besuch abgesagt!";
                 	mail($to, $subject, $message, $headers);
         	}

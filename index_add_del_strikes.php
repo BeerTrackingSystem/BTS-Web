@@ -19,6 +19,7 @@ $resultuser = mysqli_query($db, $queryuser);
                         ?>
                 </form></center>
 </td>
+<?php if (isset($mobile)) { echo "</tr><tr>";} ?>
 <td>
                 <center><h2>Del Strike</h2>
                 <form action="/del_strikes.php" method="post">

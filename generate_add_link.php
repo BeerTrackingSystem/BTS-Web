@@ -20,10 +20,11 @@
 	$username = $_POST['user'];
 	$reason = $_POST['reason'];
 
-	$queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
+	$queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
 	$recipients = mysqli_query($db, $queryrecipients);
+	$recipients_count = mysqli_num_rows($recipients);
 
-	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, reason) SELECT user.id, curdate(), '$reason' FROM user WHERE user.name LIKE '$username';";
+	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, validations_needed, reason) SELECT user.id, curdate(), $recipients_count, '$reason' FROM user WHERE user.name LIKE '$username';";
 	$resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
 
 	$queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";

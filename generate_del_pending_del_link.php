@@ -12,7 +12,7 @@
 
 <?php
         $subject = "Delete Pending-Strike-Add - Validation needed";
-        $headers = 'From: postmaster@' . $_SERVER[HTTP_HOST] . "\r\n" .
+        $headers = 'From: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
                    'Reply-To: noreply@' . $_SERVER[HTTP_HOST] . "\r\n" .
                    'Content-type: text/plain; charset=utf-8' . "\r\n" .
                    'X-Mailer: PHP/' . phpversion();
@@ -25,10 +25,11 @@
 	$username = $row['name'];
 	}
 
-        $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username';";
+        $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
         $recipients = mysqli_query($db, $queryrecipients);
+	$recipients_count = mysqli_num_rows($recipients);
 
-        $querydelpendingstrike = "INSERT INTO pending_del_strikes_del (psdid) VALUE ('$psdid') ;";
+        $querydelpendingstrike = "INSERT INTO pending_del_strikes_del (psdid, validations_needed) VALUE ('$psdid', $recipients_count) ;";
         $resultdelpendingstrike =  mysqli_query($db, $querydelpendingstrike);
 
         $querydelpendingstrikeid = "SELECT id FROM pending_del_strikes_del ORDER BY pending_del_strikes_del.id DESC LIMIT 1;";
@@ -42,7 +43,7 @@
                 $code =  generateRandomString();
                 $to =  $row['email'];
                 #A few words to say why die pending strike should be removed
-                $message = "Die Löschung des Pending-Strike von $username soll gelöscht werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeldel.php?valcode=$code";
+                $message = "Die Strike-Löschung von $username soll zurückgenommen werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeldel.php?valcode=$code";
                 mail($to, $subject, $message, $headers);
                 $querydelvalidatecode = "INSERT INTO validate_del_strikes_del (pdsdid, code) VALUES ('$delpendingstrikeid', '$code');";
                 $resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);

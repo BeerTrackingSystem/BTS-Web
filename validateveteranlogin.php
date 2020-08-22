@@ -7,7 +7,7 @@ if(!empty($_POST["name"]) && !empty($_POST["password"]))
         $username = $_POST['name'];
         $password = $_POST['password'];
 
-        $queryhash = "SELECT password FROM user WHERE name LIKE '$username';";
+        $queryhash = "SELECT password FROM veterans WHERE name LIKE '$username';";
         $resulthash = mysqli_query($db, $queryhash);
 
         while ($row = $resulthash->fetch_assoc()) {
@@ -15,7 +15,7 @@ if(!empty($_POST["name"]) && !empty($_POST["password"]))
         }
 
         if (password_verify($password,"$hash")) {
-                header("Location: http://$_SERVER[HTTP_HOST]/login_verified.php?username=$username");
+                header("Location: http://$_SERVER[HTTP_HOST]/login_veteran_verified.php?username=$username");
         }
         else
 	{

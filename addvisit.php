@@ -24,7 +24,6 @@
 	while($row = mysqli_fetch_array($recipients))
         {
                 $to =  $row['email'];
-                #A few nice words to say when a new strike needs to be validated - don't change the link at the end!
                 $message = "Aufgepasst!\n\n$username ist demnächst ($date) in der Nähe mit folgendem Hinweiß: $notice";
                 mail($to, $subject, $message, $headers);
         }

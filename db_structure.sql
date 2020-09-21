@@ -26,7 +26,7 @@ CREATE TABLE `current_stock` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `amount` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,7 +58,7 @@ CREATE TABLE `misc` (
   `title` varchar(255) DEFAULT NULL,
   `heading` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `motd` (
   PRIMARY KEY (`id`),
   KEY `fk_motd_quotes` (`quoteid`),
   CONSTRAINT `fk_motd_quotes` FOREIGN KEY (`quoteid`) REFERENCES `quotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=320 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=350 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `pending_del_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_add_pending_strikes_add` (`psaid`),
   CONSTRAINT `fk_pending_del_strikes_add_pending_strikes_add` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +113,7 @@ CREATE TABLE `pending_del_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_del_pending_strikes_del` (`psdid`),
   CONSTRAINT `fk_pending_del_strikes_del_pending_strikes_del` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,11 +130,12 @@ CREATE TABLE `pending_strikes_add` (
   `validations_needed` int(10) NOT NULL,
   `validations_acc` int(10) NOT NULL DEFAULT 0,
   `validated` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
   `reason` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_add_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,11 +152,12 @@ CREATE TABLE `pending_strikes_del` (
   `validations_needed` int(10) NOT NULL,
   `validations_acc` int(10) NOT NULL DEFAULT 0,
   `validated` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0,
   `reason` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_del_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +172,7 @@ CREATE TABLE `quotes` (
   `quote` varchar(255) DEFAULT NULL,
   `lastused` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +190,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `veteran` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,12 +202,15 @@ DROP TABLE IF EXISTS `validate_del_strikes_add`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validate_del_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `pdsaid` int(10) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `pdsaid` int(10) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_validate_del_strikes_add_pending_del_strikes_add` (`pdsaid`),
-  CONSTRAINT `fk_validate_del_strikes_add_pending_del_strikes_add` FOREIGN KEY (`pdsaid`) REFERENCES `pending_del_strikes_add` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+  KEY `fk_validate_del_strikes_add_user` (`userid`),
+  CONSTRAINT `fk_validate_del_strikes_add_pending_del_strikes_add` FOREIGN KEY (`pdsaid`) REFERENCES `pending_del_strikes_add` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_validate_del_strikes_add_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,12 +222,15 @@ DROP TABLE IF EXISTS `validate_del_strikes_del`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validate_del_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `pdsdid` int(10) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `pdsdid` int(10) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_validate_del_strikes_del_pending_del_strikes_del` (`pdsdid`),
-  CONSTRAINT `fk_validate_del_strikes_del_pending_del_strikes_del` FOREIGN KEY (`pdsdid`) REFERENCES `pending_del_strikes_del` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+  KEY `fk_validate_del_strikes_del_user` (`userid`),
+  CONSTRAINT `fk_validate_del_strikes_del_pending_del_strikes_del` FOREIGN KEY (`pdsdid`) REFERENCES `pending_del_strikes_del` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_validate_del_strikes_del_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,12 +242,15 @@ DROP TABLE IF EXISTS `validate_strikes_add`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validate_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `psaid` int(11) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `psaid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `validate_strikes_add_ibfk_2_idx` (`psaid`),
+  KEY `fk_validate_strikes_add_user` (`userid`),
+  CONSTRAINT `fk_validate_strikes_add_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `validate_strikes_add_ibfk_2` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,12 +262,15 @@ DROP TABLE IF EXISTS `validate_strikes_del`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validate_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `psdid` int(11) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `psdid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `psdid` (`psdid`),
+  KEY `fk_validate_strikes_del_user` (`userid`),
+  CONSTRAINT `fk_validate_strikes_del_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `validate_strikes_del_ibfk_2` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,7 +286,7 @@ CREATE TABLE `veterans` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,4 +316,4 @@ CREATE TABLE `visits` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-22 23:25:41
+-- Dump completed on 2020-09-21 20:31:16

@@ -15,11 +15,12 @@ if(!empty($_POST["name"]) && !empty($_POST["password"]))
         }
 
         if (password_verify($password,"$hash")) {
-                header("Location: http://$_SERVER[HTTP_HOST]/login_veteran_verified.php?username=$username");
+		define('SECURE_PAGE', true);
+                include 'login_veteran_verified.php';
         }
         else
 	{
-		header("Location: http://$_SERVER[HTTP_HOST]/login_denied.php");
+                include 'login_denied.php';
         }
     }
 ?>

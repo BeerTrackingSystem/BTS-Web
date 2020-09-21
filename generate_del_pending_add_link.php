@@ -25,11 +25,11 @@
 	$username = $row['name'];
 	}
 
-        $queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
+        $queryrecipients = "SELECT id, email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
         $recipients = mysqli_query($db, $queryrecipients);
 	$recipients_count = mysqli_num_rows($recipients);
 
-        $queryaddpendingstrike = "INSERT INTO pending_del_strikes_add (psaid, validations_needed) VALUE ('$psaid', $recipients_count) ;";
+        $queryaddpendingstrike = "INSERT INTO pending_del_strikes_add (psaid, validations_needed) VALUE ('$psaid', $recipients_count);";
         $resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
 
         $queryaddpendingstrikeid = "SELECT id FROM pending_del_strikes_add ORDER BY pending_del_strikes_add.id DESC LIMIT 1;";
@@ -42,10 +42,11 @@
         {
                 $code =  generateRandomString();
                 $to =  $row['email'];
+		$userid = $row['id'];
                 #A few words to say why die pending strike should be removed
                 $message = "Der Pending-Strike von $username soll gelöscht werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeladd.php?valcode=$code";
                 mail($to, $subject, $message, $headers);
-                $queryaddvalidatecode = "INSERT INTO validate_del_strikes_add (pdsaid, code) VALUES ('$addpendingstrikeid', '$code');";
+                $queryaddvalidatecode = "INSERT INTO validate_del_strikes_add (pdsaid, code, userid) VALUES ('$addpendingstrikeid', '$code', '$userid');";
                 $resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);
         }
 ?>

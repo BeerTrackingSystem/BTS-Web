@@ -35,6 +35,7 @@
 			if (!isset($mobile))
 			{
 				echo "<title>$title</title>";
+				#echo '<script data-name="BMC-Widget" src="support/1.0.0-widget.prod.min.js" data-id="mditsa" data-description="Support me on Buy me a coffee!" data-message="Thank you for visiting. You can now buy me a beer!" data-color="#5F7FFF" data-position="" data-x_margin="18" data-y_margin="18"></script>';
 			}
 			else
 			{
@@ -110,9 +111,7 @@
                                 </center>
                                         <tr>
 							<table>
-							<a href='https://www.paypal.me/bahaco' target='_blank'>
-  							<img src='paypal-donate-button.png' alt='Donate via PayPal' style='width:175px;height:75px;'>
-							</a>
+							<script type='text/javascript' src='support/1.0.0-button.prod.min.js' data-name='bmc-button' data-slug='mditsa' data-color='#1941e3' data-emoji='🍺'  data-font='Arial' data-text='Buy me a beer' data-outline-color='#000' data-font-color='#fff' data-coffee-color='#fd0' ></script>
 							</table>
                                         </tr>
                                 </table>

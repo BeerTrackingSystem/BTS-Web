@@ -20,11 +20,11 @@
 	$username = $_POST['user'];
 	$reason = $_POST['reason'];
 
-	$queryrecipients = "SELECT email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
+	$queryrecipients = "SELECT id, email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
 	$recipients = mysqli_query($db, $queryrecipients);
 	$recipients_count = mysqli_num_rows($recipients);
 
-	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, validations_needed, reason) SELECT user.id, curdate(), $recipients_count, '$reason' FROM user WHERE user.name LIKE '$username';";
+	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, validations_needed, reason) SELECT user.id, curdate(), $recipients_count, '$reason' FROM user WHERE user.name = '$username';";
 	$resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
 
 	$queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";
@@ -37,10 +37,11 @@
 	{
 		$code =  generateRandomString();
 		$to =  $row['email'];
+		$userid = $row['id'];
 		#A few nice words to say when a new strike needs to be validated - don't change the link at the end!
 		$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut: $reason \n\nhttp://$_SERVER[HTTP_HOST]/valadd.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
-		$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code) VALUES ('$addpendingstrikeid', '$code');";
+		$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code, userid) VALUES ('$addpendingstrikeid', '$code', '$userid');";
 		$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);
 	}
 ?>

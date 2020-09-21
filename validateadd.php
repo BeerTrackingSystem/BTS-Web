@@ -52,6 +52,12 @@
        		         	#Message when third/final validation of the pending strike is done
        		         	echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Alle $validations_needed Validationen sind erfolgt. Der Strike wurde erfolgreich validiert!";
 
+				$querydeladdcodedel = "DELETE vdsa FROM validate_del_strikes_add vdsa INNER JOIN pending_del_strikes_add pdsa ON pdsa.id = vdsa.pdsaid INNER JOIN validate_strikes_add vsa ON pdsa.psaid = vsa.psaid WHERE vsa.code LIKE '$valcode';";
+                                $resultdeladdcodedel = mysqli_query($db, $querydeladdcodedel);
+
+                                $querydeladdstrikedel = "DELETE pdsa FROM pending_del_strikes_add pdsa INNER JOIN validate_strikes_add vsa ON pdsa.psaid = vsa.psaid WHERE vsa.code LIKE '$valcode';";
+                                $resultdeladdstrikedel = mysqli_query($db, $querydeladdstrikedel);
+
 				$querydelcode = "DELETE FROM validate_strikes_add WHERE code LIKE '$valcode';";
 	        		$resultdelcode = mysqli_query($db, $querydelcode);
 			}	

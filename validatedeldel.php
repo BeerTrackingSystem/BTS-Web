@@ -58,13 +58,12 @@
 				$querydelcode = "DELETE FROM validate_del_strikes_del WHERE code LIKE '$valcode';";
 	        		$resultdelcode = mysqli_query($db, $querydelcode);
 
-		                $querydelpendingdelstrikedel = "DELETE FROM pending_del_strikes_del WHERE psdidid LIKE '$psdid';";
+		                $querydelpendingdelstrikedel = "UPDATE pending_del_strikes_del SET validated = '1' WHERE psdid LIKE '$psdid';";
 		                $resultdelpendingdelstrikedel = mysqli_query($db, $querydelpendingdelstrikedel);
 
-                		$querydelpendingstrike = "DELETE FROM pending_strikes_del WHERE id LIKE '$psdid';";
-		                $resultdelpendingstrike = mysqli_query($db, $querydelpendingstrike);
-
-                		echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Alle $validations_needed Validationen sind erfolgt. Die Entfernung der Strikes wurde erfolgreich abgebrochen!";
+				$querydelpendingstrike = "UPDATE pending_strikes_del psd INNER JOIN pending_del_strikes_del pdsd ON psd.id = pdsd.psdid SET deleted = '1' WHERE psd.id LIKE '$psdid';";
+                                $resultdelpendingstrike = mysqli_query($db, $querydelpendingstrike);
+                		echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Alle $validations_needed Validationen sind erfolgt. Der Strike-Del wurde erfolgreich abgebrochen!";
 
 			}
 		}			

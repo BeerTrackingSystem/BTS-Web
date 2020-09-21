@@ -1,6 +1,6 @@
 <?php
-$querypendingstrikesadd = "SELECT pending_strikes_add.id, name, date, validations_needed, validations_acc, reason FROM user INNER JOIN pending_strikes_add ON user.id = pending_strikes_add.userid WHERE pending_strikes_add.validated = '0';";
-$querypendingstrikesdel = "SELECT pending_strikes_del.id, name, date, validations_needed, validations_acc,  reason FROM user INNER JOIN pending_strikes_del ON user.id = pending_strikes_del.userid WHERE pending_strikes_del.validated = '0';";
+$querypendingstrikesadd = "SELECT pending_strikes_add.id, name, date, validations_needed, validations_acc, reason FROM user INNER JOIN pending_strikes_add ON user.id = pending_strikes_add.userid WHERE pending_strikes_add.validated = '0' AND pending_strikes_add.deleted = '0';";
+$querypendingstrikesdel = "SELECT pending_strikes_del.id, name, date, validations_needed, validations_acc, reason FROM user INNER JOIN pending_strikes_del ON user.id = pending_strikes_del.userid WHERE pending_strikes_del.validated = '0' AND pending_strikes_del.deleted = '0';";
 
 $resultpendingstrikesadd = mysqli_query($db, $querypendingstrikesadd);
 $resultpendingstrikesdel = mysqli_query($db, $querypendingstrikesdel);

@@ -1,4 +1,10 @@
 <?php
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 	function generateRandomString($length = 6) {
     		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     		$charactersLength = strlen($characters);

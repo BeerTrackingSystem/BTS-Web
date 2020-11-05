@@ -1,4 +1,11 @@
 <?php
+if (empty($_POST['id']))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
+	define('index_origin', true);
         include 'db.inc.php';
 ?>
 

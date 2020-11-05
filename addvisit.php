@@ -1,5 +1,8 @@
 <?php
-        include 'db.inc.php';
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
 ?>
 
 <?php
@@ -9,15 +12,13 @@
                   'Content-type: text/plain; charset=utf-8' . "\r\n" .
                   'X-Mailer: PHP/' . phpversion();
 
-	$cookie = $_COOKIE['veteran'];
-        $username = substr($cookie, 4);
         $notice = $_POST['visitnotice'];
 	$date = $_POST['visitdate'];
 	
         $queryrecipients = "SELECT email FROM user;";
         $recipients = mysqli_query($db, $queryrecipients);
 
-        $queryaddvisit = "INSERT INTO visits (veteranid, date, notice) SELECT  veterans.id, '$date', '$notice' FROM veterans WHERE veterans.name LIKE '$username';";
+        $queryaddvisit = "INSERT INTO visits (veteranid, date, notice) SELECT  veterans.id, '$date', '$notice' FROM veterans INNER JOIN user ON veterans.userid = user.id WHERE user.id LIKE '$userid';";
         $resultaddvisit =  mysqli_query($db, $queryaddvisit);
 
 

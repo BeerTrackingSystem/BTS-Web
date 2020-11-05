@@ -1,4 +1,6 @@
 <?php
+	define('index_origin', true);
+	session_start();
         include '../db.inc.php';
 ?>
 

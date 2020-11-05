@@ -1,4 +1,11 @@
 <?php
+if (empty($_POST['title']) && empty($_POST['heading']) && empty($_POST['admintitle']) && empty($_POST['adminheading']))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
+	define('index_origin', true);
         include '../db.inc.php';
 ?>
 

@@ -1,4 +1,10 @@
 <?php
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 $query = "SELECT name, currentstrikes FROM user INNER JOIN current_strikes ON user.id = current_strikes.userid WHERE user.veteran = 0;";
 
 $result = mysqli_query($db, $query);

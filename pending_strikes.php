@@ -1,4 +1,10 @@
 <?php
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 $querypendingstrikesadd = "SELECT pending_strikes_add.id, name, date, validations_needed, validations_acc, reason FROM user INNER JOIN pending_strikes_add ON user.id = pending_strikes_add.userid WHERE pending_strikes_add.validated = '0' AND pending_strikes_add.deleted = '0';";
 $querypendingstrikesdel = "SELECT pending_strikes_del.id, name, date, validations_needed, validations_acc, reason FROM user INNER JOIN pending_strikes_del ON user.id = pending_strikes_del.userid WHERE pending_strikes_del.validated = '0' AND pending_strikes_del.deleted = '0';";
 
@@ -30,7 +36,7 @@ echo "<td>" . $row['date'] . "</td>";
 echo "<td>" . $row['validations_needed'] . "</td>";
 echo "<td>" . $row['validations_acc'] . "</td>";
 echo "<td>" . $row['reason'] . "</td>";
-if (isset($_COOKIE['user']) && strpos($_COOKIE['user'], 'yes') !== false)
+if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
 {
 	echo "<td> <form action='/del_add_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
 }
@@ -64,7 +70,7 @@ echo "<td>" . $row['date'] . "</td>";
 echo "<td>" . $row['validations_needed'] . "</td>";
 echo "<td>" . $row['validations_acc'] . "</td>";
 echo "<td>" . $row['reason'] . "</td>";
-if (isset($_COOKIE['user']) && strpos($_COOKIE['user'], 'yes') !== false)
+if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
 {
 	echo "<td> <form action='/del_del_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
 }

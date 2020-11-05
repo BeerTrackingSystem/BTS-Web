@@ -1,4 +1,5 @@
 <?php
+	define('index_origin', true);
         include 'db.inc.php';
 ?>
 <?php
@@ -15,7 +16,6 @@ if(!empty($_POST["name"]) && !empty($_POST["password"]))
         }
 
         if (password_verify($password,"$hash")) {
-		define('SECURE_PAGE', true);
 		include 'login_verified.php';
         }
         else

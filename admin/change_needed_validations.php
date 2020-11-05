@@ -1,5 +1,12 @@
 <?php
+if (empty($_POST['newneededvalidations']))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 	session_start();
+	define('index_origin', true);
         include '../db.inc.php';
 ?>
 
@@ -71,7 +78,7 @@ else
 						echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
 	                                }
 
-					echo '<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+					echo '<script src="../packages/jquery-3.5.1.min.js"></script>
 						<script id="rendered-js">
 						$("input:checkbox").click(function () {
 						var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';
@@ -153,7 +160,7 @@ else
                                                 echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
                                         }
 
-                                        echo '<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                                        echo '<script src="../packages/jquery-3.5.1.min.js"></script>
                                                 <script id="rendered-js">
                                                 $("input:checkbox").click(function () {
                                                 var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';

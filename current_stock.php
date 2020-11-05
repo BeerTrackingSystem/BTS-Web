@@ -1,4 +1,10 @@
 <?php
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 $query = "SELECT amount FROM current_stock;";
 
 $result = mysqli_query($db, $query);

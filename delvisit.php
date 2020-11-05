@@ -1,5 +1,8 @@
 <?php
-        include 'db.inc.php';
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
 ?>
 
 <?php
@@ -12,11 +15,15 @@
 	$queryrecipients = "SELECT email FROM user;";
         $recipients = mysqli_query($db, $queryrecipients);
 
-	$cookie = $_COOKIE['veteran'];
-        $username = substr($cookie, 4);
+	$queryusername = "SELECT name FROM user WHERE id = '$userid';";
+        $resultusername = mysqli_query($db, $queryusername);
+	while($row = mysqli_fetch_array($resultusername))
+	{
+		$username = $row['name'];
+	}
 
 	$visitid =  $_POST['id'];
-	
+		
 	$queryvisitveteran = "SELECT name FROM veterans INNER JOIN visits ON veterans.id = visits.veteranid WHERE visits.id = $visitid;";
         $resultvisitveteran = mysqli_query($db, $queryvisitveteran);
 	while($row = mysqli_fetch_array($resultvisitveteran))

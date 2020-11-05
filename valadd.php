@@ -1,3 +1,9 @@
+<?php
+if (!isset($_GET['valcode']))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
 <html>
         <head>
                 <link rel="Favicon" href="favicon.ico" type="image/x-icon"/>

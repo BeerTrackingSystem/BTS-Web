@@ -1,4 +1,10 @@
 <?php
+if (!defined('index_origin'))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 	$querylastchange = "SELECT quoteid,`change` FROM motd ORDER BY id DESC LIMIT 1;";
 	$resultlastchange = mysqli_query($db, $querylastchange);
 	$lastchangerow = mysqli_fetch_array($resultlastchange);

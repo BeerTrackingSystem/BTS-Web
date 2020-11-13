@@ -1,10 +1,11 @@
 <?php
-if (!defined('index_origin'))
+if (!isset($_POST['newstock']))
 {
     die('<h1>Direct File Access Prohibited</h1>');
 }
 ?>
 <?php
+	define('index_origin', true);
         include 'db.inc.php';
 ?>
 

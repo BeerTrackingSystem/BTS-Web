@@ -129,6 +129,7 @@
 			        <table>
 		                <tr>
 					<select name='quoteid'>
+					<option value="blank" selected>Select your option</option>
 						<?php
 							$querygetquotes = "SELECT id, quote FROM quotes;";
 							$resultgetquotes = mysqli_query($db, $querygetquotes);
@@ -175,6 +176,80 @@
 
 			</form>
 		</td>
+		
+		<td valign="top">
+			<form action="./resend_codes.php" method="post">
+                                Resend Codes:
+                                <table border='0'>
+                                <tr style="outline: thin solid">
+				<td>
+                                        Code:
+				</td>
+				<td>
+                                        <select name='addcodes'>
+                                                <option value="blank" selected>Select your option</option>
+                                                <?php
+                                                        $querygetaddcodes = "SELECT validate_strikes_add.id, code, pending_strikes_add.reason, user.name FROM validate_strikes_add INNER JOIN user ON validate_strikes_add.userid = user.id INNER JOIN pending_strikes_add ON validate_strikes_add.psaid = pending_strikes_add.id;";
+                                                        $resultgetaddcodes = mysqli_query($db, $querygetaddcodes);
+
+                                                        while($row = mysqli_fetch_array($resultgetaddcodes))
+                                                        {
+                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+							}
+						?>
+					</select>
+					<br>
+					<select name='delcodes'>
+						<option value="blank" selected>Select your option</option>
+						<?php
+                                                        $querygetdelcodes = "SELECT validate_strikes_del.id, code, pending_strikes_del.reason, user.name FROM validate_strikes_del INNER JOIN user ON validate_strikes_del.userid = user.id INNER JOIN pending_strikes_del ON validate_strikes_del.psdid = pending_strikes_del.id;";
+                                                        $resultgetdelcodes = mysqli_query($db, $querygetdelcodes);
+
+                                                        while($row = mysqli_fetch_array($resultgetdelcodes))
+                                                        {
+                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                        }
+                                                ?>
+                                        </select>
+				</td>
+                                </tr>
+                                <tr style="outline: thin solid">
+				<td>
+                                        Delete Codes:
+				</td>
+				<td>
+                                        <select name='deladdcodes'>
+                                                <option value="blank" selected>Select your option</option>
+                                                <?php
+                                                        $querygetdeladdcodes = "SELECT validate_del_strikes_add.id, code, pending_strikes_add.reason, user.name FROM validate_del_strikes_add INNER JOIN user ON validate_del_strikes_add.userid = user.id INNER JOIN pending_del_strikes_add ON validate_del_strikes_add.pdsaid = pending_del_strikes_add.id INNER JOIN pending_strikes_add ON pending_strikes_add.id = pending_del_strikes_add.psaid;";
+                                                        $resultgetdeladdcodes = mysqli_query($db, $querygetdeladdcodes);
+
+                                                        while($row = mysqli_fetch_array($resultgetdeladdcodes))
+                                                        {
+                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                        }
+						?>
+                                        </select>
+					<br>
+                                        <select name='deldelcodes'>
+						<option value="blank" selected>Select your option</option>
+						<?php
+                                                        $querygetdeldelcodes = "SELECT validate_del_strikes_del.id, code, pending_strikes_del.reason, user.name FROM validate_del_strikes_del INNER JOIN user ON validate_del_strikes_del.userid = user.id INNER JOIN pending_del_strikes_del ON validate_del_strikes_del.pdsdid = pending_del_strikes_del.id INNER JOIN pending_strikes_del ON pending_strikes_del.id = pending_del_strikes_del.psdid;";
+                                                        $resultgetdeldelcodes = mysqli_query($db, $querygetdeldelcodes);
+
+                                                        while($row = mysqli_fetch_array($resultgetdeldelcodes))
+                                                        {
+                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                        }
+                                                ?>
+                                        </select>
+				</td>
+                                </tr>
+                                </table>
+                                <br>
+                                                <input type='submit' value='Resend'>
+                        </form>
+		</td>
 	</tr>
 	
 	<tr>
@@ -185,6 +260,7 @@
                                 <table>
                                 <tr>
                                         <select name='quoteid'>
+						<option value="blank" selected>Select your option</option>
                                                 <?php
                                                         $querygetquotes = "SELECT id, quote FROM quotes;";
                                                         $resultgetquotes = mysqli_query($db, $querygetquotes);
@@ -234,6 +310,61 @@
 			        </table>
 			</form>
 		</td>
+		
+		<td valign="top">
+                        <form action="./modify_user.php" method="post">
+                                Modify user/veteran data:
+                                <br><br>
+                                <table>
+                                <tr>
+                                        <td>Name:</td>
+                                        <td><input type='text' name='name' style='width: 250px;'></td>
+                                </tr>
+
+                                <tr>
+                                        <td>Email:</td>
+                                        <td><input type='text' name='email' style='width: 250px;'></td>
+                                 </tr>
+
+                                <tr>
+                                        <td>SMS:</td>
+                                        <td><input type='text' name='sms' style='width: 250px;'></td>
+                                </tr>
+
+                                <tr>
+                                        <td>Password:</td>
+                                        <td><input type='text' name='password' style='width: 250px;'></td>
+                                 </tr>
+                                <tr>
+					<td colspan='2'>
+						<select name='id'>
+							<option value="blank" selected>Select your option</option>
+                                                	<?php
+                                                        	$querygetuser = "SELECT id, name FROM user WHERE veteran = '0';";
+	                                                        $resultgetuser = mysqli_query($db, $querygetuser);
+
+        	                                                while($row = mysqli_fetch_array($resultgetuser))
+                	                                        {
+									#0=user
+                        	                                        echo "<option value='0-" . $row['id'] . "'>" .  $row['name'] . "</option>" ;
+                                	                        }
+								
+								$querygetveteran = "SELECT id, name FROM veterans;";
+                                                                $resultgetveteran = mysqli_query($db, $querygetveteran);
+
+                                                                while($row = mysqli_fetch_array($resultgetveteran))
+                                                                {
+									#1=veteran
+                                                                        echo "<option value='1-" . $row['id'] . "'>" .  $row['name'] . " (Veteran)</option>" ;
+                                                                }
+                                        	        ?>
+                                        	</select>
+						<input type='submit' value='Modify'>
+					</td>
+                                </tr>
+                                </table>
+                        </form>
+                </td>
 	</tr>
 
 	 <tr>

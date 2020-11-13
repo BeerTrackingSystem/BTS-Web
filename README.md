@@ -27,7 +27,7 @@ Track your beer consumption!
 
 ### Installation
 1. Create database and database-user with grant on that database (name it yourway)
-2. Edit the database name in db_strucuture.sql to your needs
+2. Edit the database name in db_strucuture_X.X_base.sql to your needs
 3. Push the db_structure.sql file into your database. All required tables will be created
 4. Configure your webserver your way and set "index.php" as index page and for /admin the admin.php as index page
 5. Maybe secure the admin section, e.g. with htaccess
@@ -38,7 +38,6 @@ Track your beer consumption!
 10. Set up the basics on the admin panel (create user, add quote, change titles/headings)
 11. Open a beer and try it out!
 
-**Important** The reloading of the main page stops after you added the first quote
 
 ## Screenshots
 ![Current website view](https://image.prntscr.com/image/y1VPM7WmQQmHTgtqb8vv-A.png)

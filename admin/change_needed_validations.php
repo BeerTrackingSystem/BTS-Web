@@ -1,5 +1,5 @@
 <?php
-if (empty($_POST['newneededvalidations']))
+if (!isset($_POST['newneededvalidations']))
 {
     die('<h1>Direct File Access Prohibited</h1>');
 }

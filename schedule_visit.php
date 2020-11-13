@@ -1,5 +1,5 @@
 <?php
-if (empty($_POST['visitnotice']))
+if (!isset($_POST['visitnotice']))
 {
     die('<h1>Direct File Access Prohibited</h1>');
 }

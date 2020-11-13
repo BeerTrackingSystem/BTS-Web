@@ -1,4 +1,10 @@
 <?php
+if (!isset($_POST['veterans-login']))
+{
+    die('<h1>Direct File Access Prohibited</h1>');
+}
+?>
+<?php
 	define('index_origin', true);
         include 'db.inc.php';
 ?>

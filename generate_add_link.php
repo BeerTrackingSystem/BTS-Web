@@ -45,7 +45,7 @@ if (!defined('index_origin'))
 		$to =  $row['email'];
 		$userid = $row['id'];
 		#A few nice words to say when a new strike needs to be validated - don't change the link at the end!
-		$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut: $reason \n\nhttp://$_SERVER[HTTP_HOST]/valadd.php?valcode=$code";
+		$message = "Ein kleiner Klick für dich, aber ein großer Schritt Richtung neuen Kasten!\n\n$username hat nämlich Scheiße gebaut: $reason \n\nhttps://$_SERVER[HTTP_HOST]/valadd.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$queryaddvalidatecode = "INSERT INTO validate_strikes_add (psaid, code, userid) VALUES ('$addpendingstrikeid', '$code', '$userid');";
 		$resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);

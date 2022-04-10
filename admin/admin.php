@@ -5,12 +5,18 @@
 ?>
 
 <?php
-        $querymisc = "SELECT title, heading FROM misc WHERE id LIKE '2';";
+	$querymisc = "SELECT attribute,value FROM misc WHERE object = 'admin_page' AND (attribute = 'title' OR attribute = 'heading');";
         $resultmisc = mysqli_query($db, $querymisc);
 
         while ($row = $resultmisc->fetch_assoc()) {
-                $title = $row['title'];
-                $heading = $row['heading'];
+                if ($row['attribute'] == 'title')
+                {
+                        $title = $row['value'];
+                }
+                if ($row['attribute'] == 'heading')
+                {
+                        $heading = $row['value'];
+                }
         }
 ?>
 
@@ -369,7 +375,7 @@
 
 	 <tr>
                  <td valign="top" colspan='2'>
-                        <form action="./del-val_pstrikes.php" method="post">
+                        <form action="./delete_val_pstrikes.php" method="post">
                                 <center>Delete or validate pending strikes:</center>
                                 <br>
 				<center>
@@ -443,6 +449,117 @@
                                         <input type='submit' name='submit' value='Delete'>
                                         <input type='submit' name='submit' value='Validate'></center>
                         </form>
+		</td>
+		<td valign="top">
+                	Modify brewery/beer data:
+				<br><br>
+                                <table>
+                                <tr style='outline: thin solid'>
+					<form action="./add_brewery.php" method="post">
+                                        	<td><input type='text' name='newbrewery' placeholder='Brewery Name' style='width: 250px;' required></td>
+                                        	<td><input type='submit' value='Add Brewery' name='addbrewery'></td>
+                        		</form>	
+                                </tr>
+                                <tr style='outline: thin solid'>
+					<form action="./add_beer.php" method="post">
+                                        <td>
+						<select name='breweryid'>
+                                        		<option value="blank" selected>Select brewery</option>
+                                                	<?php
+                                                        	$querygetbreweries = "SELECT breweries.id as breweryid, breweries.name as brewery FROM breweries ORDER BY brewery ASC;";
+                                                        	$resultgetbreweries = mysqli_query($db, $querygetbreweries);
+
+                                                        	while($row = mysqli_fetch_array($resultgetbreweries))
+                                                        	{
+                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                        	}
+                                                	?>
+                                        	</select></td>
+						<td><input type='text' name='newbeer' placeholder='Beer Name' style='width: 250px;' required></td>
+						<td><input type='text' name='style' placeholder='Style' style='width: 150px;' required></td>
+                                        	<td><input type='submit' value='Add Beer' name='addbeer'></td>
+                        		</form>	
+                                 </tr>
+
+                                <tr style='outline: thin solid'>
+					<form action="./change_brewery.php" method="post">
+                                        <td>
+                                        	<select name='breweryid'>
+                                               		<option value="blank" selected>Select brewery</option>
+                                                	<?php
+                                                        	$querygetbreweries = "SELECT breweries.id as breweryid, breweries.name as brewery FROM breweries ORDER BY brewery ASC;";
+                                                        	$resultgetbreweries = mysqli_query($db, $querygetbreweries);
+
+                                                        	while($row = mysqli_fetch_array($resultgetbreweries))
+                                                        	{
+                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                        	}
+                                                	?>
+                                        	</select></td>
+                                        	<td><input type='text' name='newbreweryname' placeholder='New Brewery Name' style='width: 250px;' required></td>
+                                        	<td><input type='submit' value='Modify Brewery' name='changebrewery'></td>
+                        		</form>	
+                                </tr>
+
+                                <tr style='outline: thin solid'>
+					<form action="./change_beer.php" method="post">
+                                        <td>
+                                        	<select name='beerid'>
+                                                	<option value="blank" selected>Select beer</option>
+                                                	<?php
+                                                        	$querygetbeers = "SELECT beers.id as beerid, beers.name as beer, breweries.name AS brewery FROM beers INNER JOIN breweries ON beers.breweryid = breweries.id ORDER BY brewery ASC, beer ASC;";
+                                                        	$resultgetbeers = mysqli_query($db, $querygetbeers);
+
+                                                        	while($row = mysqli_fetch_array($resultgetbeers))
+                                                        	{
+                                                                	echo "<option value='" . $row['beerid'] . "'>" . $row['brewery'] . " - " . $row['beer'] . "</option>";
+                                                        	}
+                                                	?>
+                                        	</select></td>
+                                        	<td><input type='text' name='newbeername' placeholder='New Beer Name' style='width: 250px;'></td>
+                                        	<td><input type='text' name='newbeerstyle' placeholder='New Beer Style' style='width: 250px;'></td>
+                                        	<td><input type='submit' value='Modify Beer' name='changebeer'></td>
+                        		</form>	
+                                 </tr>
+
+                                <tr style='outline: thin solid'>
+					<form action="./delete_brewery.php" method="post">
+					<td>
+                                        	<select name='breweryid'>
+                                                	<option value="blank" selected>Select brewery</option>
+                                                	<?php
+                                                        	$querygetbreweries = "SELECT breweries.id as breweryid, breweries.name as brewery FROM breweries ORDER BY brewery ASC;";
+                                                        	$resultgetbreweries = mysqli_query($db, $querygetbreweries);
+
+                                                        	while($row = mysqli_fetch_array($resultgetbreweries))
+                                                        	{
+                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                        	}
+                                                	?>
+                                        	</select></td>
+                                        	<td><input type='submit' value='Delete Brewery' name='deletebrewery'></td>
+                        		</form>	
+                                </tr>
+
+				<tr style='outline: thin solid'>
+					<form action="./delete_beer.php" method="post">
+                                        <td>
+                                        	<select name='beerid'>
+                                                	<option value="blank" selected>Select beer</option>
+                                                	<?php
+								$querygetbeers = "SELECT beers.id as beerid, beers.name as beer, breweries.name AS brewery FROM beers INNER JOIN breweries ON beers.breweryid = breweries.id ORDER BY brewery ASC, beer ASC;";
+                                                        	$resultgetbeers = mysqli_query($db, $querygetbeers);
+
+                                                        	while($row = mysqli_fetch_array($resultgetbeers))
+                                                        	{
+                                                                	echo "<option value='" . $row['beerid'] . "'>" . $row['brewery'] . " - " . $row['beer'] . "</option>";
+                                                        	}
+                                                	?>
+                                        	</select></td>
+                                        	<td><input type='submit' value='Delete Beer' name='deletebeer'></td>
+                        		</form>	
+				</tr>
+                                </table>
 		</td>
 	</tr>
 </table></center>

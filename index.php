@@ -3,6 +3,7 @@
 	session_start();
 	$sessionid=$_COOKIE['PHPSESSID'];
 	include 'db.inc.php';
+	include 'check_login.php';
 ?>
 
 <?php
@@ -14,41 +15,32 @@
 ?>
 
 <?php
-	$querymisc = "SELECT title, heading FROM misc WHERE id LIKE '1';";
+	$querymisc = "SELECT attribute,value FROM misc WHERE object = 'main_page' AND (attribute = 'title' OR attribute = 'heading');";
 	$resultmisc = mysqli_query($db, $querymisc);
 
 	while ($row = $resultmisc->fetch_assoc()) {
-               	$title = $row['title'];
-		$heading = $row['heading'];
+		if ($row['attribute'] == 'title')
+		{
+               		$title = $row['value'];
+		}
+		if ($row['attribute'] == 'heading')
+		{
+			$heading = $row['value'];
+		}
         }
 
-	$querymiscmobile = "SELECT title, heading FROM misc WHERE id LIKE '3';";
-        $resultmiscmobile = mysqli_query($db, $querymiscmobile);
+	$querymiscmobile = "SELECT attribute,value FROM misc WHERE object = 'mobile_main_page' AND (attribute = 'title' OR attribute = 'heading');";
+	$resultmiscmobile = mysqli_query($db, $querymiscmobile);
 
-        while ($row = $resultmiscmobile->fetch_assoc()) {
-                $titlemobile = $row['title'];
-                $headingmobile = $row['heading'];
-        }
-?>
-
-<?php
-	function check_login($sid) {
-	include 'db.inc.php';
-        	$querysession = "SELECT auth_sessions.id, user.id, user.veteran from auth_sessions INNER JOIN user ON auth_sessions.userid = user.id WHERE auth_sessions.sessionid = '$sid';";
-                $resultsession = mysqli_query($db, $querysession);
-                if (mysqli_num_rows($resultsession)==0)
-                {
-                        return false;
-                }
-                else
-                {
-			while ($row = $resultsession->fetch_assoc()) {
-                	$isveteran = $row['veteran'];
-			$userid = $row['id'];
-        		}
-
-			return array(true, $isveteran, $userid);
-                }
+	while ($row = $resultmiscmobile->fetch_assoc()) {
+		if ($row['attribute'] == 'title')
+		{
+               		$titlemobile = $row['value'];
+		}
+		if ($row['attribute'] == 'heading')
+		{
+			$headingmobile = $row['value'];
+		}
         }
 ?>
 
@@ -58,7 +50,6 @@
 			if (!isset($mobile))
 			{
 				echo "<title>$title</title>";
-				#echo '<script data-name="BMC-Widget" src="support/1.0.0-widget.prod.min.js" data-id="mditsa" data-description="Support me on Buy me a coffee!" data-message="Thank you for visiting. You can now buy me a beer!" data-color="#5F7FFF" data-position="" data-x_margin="18" data-y_margin="18"></script>';
 			}
 			else
 			{
@@ -122,25 +113,32 @@
                 		</form>
 				
 			</td>
-			<?php 	
-				if (!isset($mobile))
-				{
-				echo "<td valign='top'>
-				<center>
+
+                        <td valign="top">
+                                <center>
                                 <table>
                                         <tr>
-                                                <th><h2>Donate</h2></th>
+                                                <th><h2>Beer Ranking</h2></th>
                                         </tr>
                                 </center>
+
+					<tr>
+						<td><?php include 'top_ranking.php'; ?></td>
+					</tr>
+
                                         <tr>
-							<table>
-							<script type='text/javascript' src='support/1.0.0-button.prod.min.js' data-name='bmc-button' data-slug='mditsa' data-color='#1941e3' data-emoji='🍺'  data-font='Arial' data-text='Buy me a beer' data-outline-color='#000' data-font-color='#fff' data-coffee-color='#fd0' ></script>
-							</table>
+						<td>
+						<?php
+							if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
+                                				{
+		                 					echo '<a href="https://' . $_SERVER[HTTP_HOST] . '/ranking" target="_blank">Komplette Übersicht</a>';
+                                				}
+						?>
+						</td>
                                         </tr>
+
                                 </table>
-				</td>";
-				}
-			?>
+                        </td>
 		</tr>
 	</table>
 		<?php 
@@ -161,5 +159,14 @@
 			include 'veterans_visit.php';
 		?>
 	</center>
+                <script src='support/overlay-widget.js'></script>
+                <script>
+                        kofiWidgetOverlay.draw('mditsa', {
+                        'type': 'floating-chat',
+                        'floating-chat.donateButton.text': 'Support me',
+                        'floating-chat.donateButton.background-color': '#0011ff',
+                        'floating-chat.donateButton.text-color': '#fff'
+                        });
+                </script>
 	</body>
 </html>

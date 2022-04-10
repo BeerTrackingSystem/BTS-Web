@@ -50,7 +50,7 @@ if (!defined('index_origin'))
                 $to =  $row['email'];
 		$userid = $row['id'];
                 #A few words to say why die pending strike should be removed
-                $message = "Der Pending-Strike von $username soll gelöscht werden:\n\nhttp://$_SERVER[HTTP_HOST]/valdeladd.php?valcode=$code";
+                $message = "Der Pending-Strike von $username soll gelöscht werden:\n\nhttps://$_SERVER[HTTP_HOST]/valdeladd.php?valcode=$code";
                 mail($to, $subject, $message, $headers);
                 $queryaddvalidatecode = "INSERT INTO validate_del_strikes_add (pdsaid, code, userid) VALUES ('$addpendingstrikeid', '$code', '$userid');";
                 $resultaddvalidatecode =  mysqli_query($db, $queryaddvalidatecode);

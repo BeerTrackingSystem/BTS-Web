@@ -78,7 +78,7 @@ else
 						echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
 	                                }
 
-					echo '<script src="../packages/jquery-3.5.1.min.js"></script>
+					echo '<script src="../packages/jquery.min.js"></script>
 						<script id="rendered-js">
 						$("input:checkbox").click(function () {
 						var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';
@@ -160,7 +160,7 @@ else
                                                 echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
                                         }
 
-                                        echo '<script src="../packages/jquery-3.5.1.min.js"></script>
+                                        echo '<script src="../packages/jquery.min.js"></script>
                                                 <script id="rendered-js">
                                                 $("input:checkbox").click(function () {
                                                 var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';

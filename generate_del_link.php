@@ -45,7 +45,7 @@ if (!defined('index_origin'))
 		$to =  $row['email'];
 		$userid = $row['id'];
 		#A few nice words to say when a strike deletion must be validated - don't change the link at the end!
-		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt: $reason \n\nMöge ihm vergeben werden: http://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
+		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt: $reason \n\nMöge ihm vergeben werden: https://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
 		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code, userid) VALUES ('$delpendingstrikeid', '$code', '$userid');";
 		$resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);

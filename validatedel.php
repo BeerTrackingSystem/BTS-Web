@@ -48,8 +48,25 @@ if (!isset($_GET['valcode']))
 	        		$resultdelcode = mysqli_query($db, $querydelcode);
 	
 			} elseif ($validations_left == "1") {
-				 $querysetvalidations_acc = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validations_acc = validations_acc + 1 WHERE validate_strikes_del.code LIKE '$valcode';";
-				 $resultsetvalidations_acc = mysqli_query($db, $querysetvalidations_acc);
+				$querysetvalidations_acc = "UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validations_acc = validations_acc + 1 WHERE validate_strikes_del.code LIKE '$valcode';";
+				$resultsetvalidations_acc = mysqli_query($db, $querysetvalidations_acc);
+
+				$queryeventstatus = "SELECT event FROM pending_strikes_del INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code = '$valcode';";
+                                $resulteventstatus = mysqli_query($db, $queryeventstatus);
+                                $eventstatus =  mysqli_fetch_array($resulteventstatus);
+
+                                $querystrikeamounts = "SELECT value AS amount_normal, (SELECT value AS amount_normal FROM misc WHERE object = 'strike_del' AND ATTRIBUTE = 'amount_event') AS amount_event FROM misc WHERE object = 'strike_del' AND ATTRIBUTE = 'amount_normal';";
+                                $resultstrikeamounts = mysqli_query($db, $querystrikeamounts);
+                                $strikeamounts =  mysqli_fetch_array($resultstrikeamounts);
+
+                                if ($eventstatus['event'] == true)
+                                {
+                                        $amount = $strikeamounts['amount_event'];
+                                }
+                                else
+                                {
+                                        $amount = $strikeamounts['amount_normal'];
+                                }
 
 				$querycurrentstrikes = "Select currentstrikes FROM current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.code LIKE '$valcode';";
 				$resultcurrentstrikes = mysqli_query($db, $querycurrentstrikes);
@@ -57,8 +74,8 @@ if (!isset($_GET['valcode']))
                 		        $currentstrikes = $row['currentstrikes'];
                 		}
 
-                		if ($currentstrikes >= "5"){
-		                        $querydelstrike = "UPDATE current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET currentstrikes = currentstrikes-5 WHERE validate_strikes_del.code LIKE '$valcode';";
+                		if ($currentstrikes >= $amount){
+		                        $querydelstrike = "UPDATE current_strikes INNER JOIN pending_strikes_del ON current_strikes.userid = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET currentstrikes = currentstrikes-$amount WHERE validate_strikes_del.code LIKE '$valcode';";
                 		        $resultdelstrike = mysqli_query($db, $querydelstrike);
                 		}
                 		else {
@@ -66,12 +83,15 @@ if (!isset($_GET['valcode']))
                 			$resultdelremainingstrike = mysqli_query($db, $querydelremainingstrike);
                 		}
 
+				$queryupdatelastpay = "UPDATE user INNER JOIN pending_strikes_del ON user.id = pending_strikes_del.userid INNER JOIN validate_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid SET last_pay = curdate() WHERE validate_strikes_del.code = '$valcode';";
+	        		$resultupdatelastpay = mysqli_query($db, $queryupdatelastpay);
+
                 		$queryvalidatepsd ="UPDATE pending_strikes_del INNER JOIN validate_strikes_del ON  pending_strikes_del.id = validate_strikes_del.psdid SET validated = '1' WHERE validate_strikes_del.code LIKE '$valcode';";
 		                $resultvalidatepsd = mysqli_query($db, $queryvalidatepsd);
                 		#Message when third/final validation of the pending strike is done
-		                echo "Validation 4 wurde mit dem Code $valcode erfolgreich durchgeführt! Die Strike-Löschung wurde erfolgreich validiert!";
+		                echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Die Strike-Löschung wurde erfolgreich validiert!";
 
-			 	$querydeldelcodedel = "DELETE vdsd FROM validate_del_strikes_del vdsd INNER JOIN pending_del_strikes_del pdsd ON pdsd.id = vdsd.pdsdid INNER JOIN validate_strikes_del vsa ON pdsd.psdid = vsd.psdid WHERE vsd.code LIKE '$valcode';";
+			 	$querydeldelcodedel = "DELETE vdsd FROM validate_del_strikes_del vdsd INNER JOIN pending_del_strikes_del pdsd ON pdsd.id = vdsd.pdsdid INNER JOIN validate_strikes_del vsd ON pdsd.psdid = vsd.psdid WHERE vsd.code LIKE '$valcode';";
                                 $resultdeldelcodedel = mysqli_query($db, $querydeldelcodedel);
 
                                 $querydeldelstrikedel = "DELETE pdsd FROM pending_del_strikes_del pdsd INNER JOIN validate_strikes_del vsd ON pdsd.psdid = vsd.psdid WHERE vsd.code LIKE '$valcode';";

@@ -69,8 +69,18 @@
 			{
 				echo "<center><h1>$headingmobile</h1></center>";
 			}
+
+			$querymotdactivation = "SELECT value AS activation FROM misc WHERE object = 'motd' AND attribute = 'activation';;";
+        		$resultmotdactivation = mysqli_query($db, $querymotdactivation);
+			$motdactivation = mysqli_fetch_array($resultmotdactivation);
+
+			if ( $motdactivation['activation'] == true)
+			{
+				echo "<center><h3>MotD: ";
+				include 'motd.php';
+				echo "</h3></center>";
+			}
 		?>
-		<center><h3>MotD: <?php include 'motd.php'; ?></h3></center>
 
 	<center>
 	<table border="1" cellspacing="10">

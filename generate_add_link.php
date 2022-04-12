@@ -25,12 +25,20 @@ if (!defined('index_origin'))
 
 	$username = $_POST['user'];
 	$reason = $_POST['reason'];
+	if (isset($_POST['event']))
+	{
+		$event = $_POST['event'];
+	}
+	else
+	{
+		$event = 0;
+	}
 
 	$queryrecipients = "SELECT id, email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
 	$recipients = mysqli_query($db, $queryrecipients);
 	$recipients_count = mysqli_num_rows($recipients);
 
-	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, validations_needed, reason) SELECT user.id, curdate(), $recipients_count, '$reason' FROM user WHERE user.name = '$username';";
+	$queryaddpendingstrike = "INSERT INTO pending_strikes_add (userid, date, validations_needed, event, reason) SELECT user.id, curdate(), $recipients_count, $event, '$reason' FROM user WHERE user.name = '$username';";
 	$resultaddpendingstrike =  mysqli_query($db, $queryaddpendingstrike);
 
 	$queryaddpendingstrikeid = "SELECT id FROM pending_strikes_add ORDER BY pending_strikes_add.id DESC LIMIT 1;";

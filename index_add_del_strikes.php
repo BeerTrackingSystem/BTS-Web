@@ -14,7 +14,9 @@ $resultuser = mysqli_query($db, $queryuser);
 <td>
                 <center><h2>Add Strike</h2>
                 <form action="/add_strikes.php" method="post">
-			<input type="text" name="reason" placeholder="Reason" required>
+			<input type="text" name="reason" placeholder="Reason" required><br>
+			<input type="checkbox" id="event" name="event" value="1">
+			<label for="event">Event?</label>
 			<br><br>
                         <?php
                                 while($row = mysqli_fetch_array($resultuser))
@@ -29,7 +31,9 @@ $resultuser = mysqli_query($db, $queryuser);
 <td>
                 <center><h2>Del Strike</h2>
                 <form action="/del_strikes.php" method="post">
-			<input type="text" name="reason" placeholder="Reason" required>
+			<input type="text" name="reason" placeholder="Reason" required><br>
+			<input type="checkbox" id="event" name="event" value="1">
+			<label for="event">Event?</label>
                         <br><br>
                          <?php
                                 $resultuser = mysqli_query($db, $queryuser);

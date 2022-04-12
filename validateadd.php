@@ -50,8 +50,25 @@ if (!isset($_GET['valcode']))
 			} elseif ($validations_left == "1") {
 				$querysetvalidations_acc = "UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET validations_acc = validations_acc + 1 WHERE validate_strikes_add.code LIKE '$valcode';";
 				$resultsetvalidations_acc = mysqli_query($db, $querysetvalidations_acc);
+
+				$queryeventstatus = "SELECT event FROM pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid WHERE validate_strikes_add.code = '$valcode';";
+				$resulteventstatus = mysqli_query($db, $queryeventstatus);
+				$eventstatus =  mysqli_fetch_array($resulteventstatus);
 	
-	               		$queryaddstrike = "UPDATE current_strikes INNER JOIN pending_strikes_add ON current_strikes.userid = pending_strikes_add.userid INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET currentstrikes = currentstrikes+1; ";
+				$querystrikeamounts = "SELECT value AS amount_normal, (SELECT value AS amount_normal FROM misc WHERE object = 'strike_add' AND ATTRIBUTE = 'amount_event') AS amount_event FROM misc WHERE object = 'strike_add' AND ATTRIBUTE = 'amount_normal';";
+				$resultstrikeamounts = mysqli_query($db, $querystrikeamounts);
+				$strikeamounts =  mysqli_fetch_array($resultstrikeamounts);
+
+				if ($eventstatus['event'] == true)
+				{
+					$amount = $strikeamounts['amount_event'];
+				}
+				else
+				{
+					$amount = $strikeamounts['amount_normal'];
+				}
+
+	               		$queryaddstrike = "UPDATE current_strikes INNER JOIN pending_strikes_add ON current_strikes.userid = pending_strikes_add.userid INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET currentstrikes = currentstrikes+$amount; ";
 				$resultaddstrike = mysqli_query($db, $queryaddstrike);
 	
 	                	$queryvalidatepsa ="UPDATE pending_strikes_add INNER JOIN validate_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid SET validated = '1' WHERE validate_strikes_add.code LIKE '$valcode';";

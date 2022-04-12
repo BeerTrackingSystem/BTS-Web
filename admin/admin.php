@@ -119,7 +119,7 @@
 				<br><br>
                                 <tr>
                                         <td colspan='2'>
-                                                <input type='number' name='newneededvalidations' style='width: 50px;' required>
+                                                <input type='number' name='newneededvalidations' min='0' style='width: 50px;' required>
                                                 <input type='submit' value='Change'>
 					</td>
                                 </tr>
@@ -292,29 +292,76 @@
 				<br><br>
 			        <table>
 			        <tr>
-                      			<td>Title:</td>
-		                        <td><input type='text' name='title' style='width: 250px;'></td>
-        		        </tr>
+					Object:
+					<select name='miscobject' id='miscobject'>
+                                                <option value="blank" selected>Select object</option>
+                                                <?php
+                                                        $querygetobjects = "SELECT object FROM misc GROUP BY object;";
+                                                        $resultgetobjects = mysqli_query($db, $querygetobjects);
 
-		                <tr>
-               			        <td>Heading:</td>
-		                        <td><input type='text' name='heading' style='width: 250px;'></td>
-               			 </tr>
-
-			        <tr>
-                      			<td>Admin Title:</td>
-		                        <td><input type='text' name='admintitle' style='width: 250px;'></td>
-        		        </tr>
-
-		                <tr>
-               			        <td>Admin Heading:</td>
-		                        <td><input type='text' name='adminheading' style='width: 250px;'></td>
-               			 </tr>
-		                <tr>
-                		        <td colspan='2'><input type='submit' value='Change'></td>
+                                                        while($row = mysqli_fetch_array($resultgetobjects))
+                                                        {
+                                                                echo "<option value='" . $row['object'] . "'>" . $row['object'] . "</option>";
+                                                        }
+                                                ?>
+                                        </select>
+					<br>
+					Attribute:
+					<select name='miscattribute' id='miscattribute'>
+                                                <option value="blank" selected>Select attribute first</option>
+                                        </select>
+					<br>
+					<label for="currentvalue">Current Value:</label>
+					<input type="text" id="currentvalue" name="currentvalue" value="" readonly disabled>
+					<br>
+					<label for="newvalue">New Value:</label>
+					<input type='text' name='newvalue' id="newvalue" style='width: 250px;' required>
 		                </tr>
+                                <tr>
+                                        <td><input type='submit' value='Change'></td>
+                                </tr>
 			        </table>
 			</form>
+<script src="../packages/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#miscobject').on('change',function(){
+      getmiscattributes();
+      getmiscvalues();
+    });
+
+    $('#miscattribute').on('change',function(){
+      getmiscvalues();
+    });
+
+    function getmiscattributes(){
+      var miscobject = $('#miscobject').val();
+
+      $.ajax({
+          type:'POST',
+          url:'getmiscattributes.php',
+          data:'miscobject='+miscobject,
+          success:function(data){
+            $('#miscattribute').html(data);
+          }
+      });
+      };
+
+    function getmiscvalues(){
+      var miscobject = $('#miscobject').val();
+      var miscattribute = $('#miscattribute').val();
+
+      $.ajax({
+          type:'POST',
+          url:'getmiscvalues.php',
+	  data: { miscobject : miscobject, miscattribute : miscattribute },
+          success:function(data){
+            $('#currentvalue').val(data);
+          }
+      });
+      };
+  });
+</script>
 		</td>
 		
 		<td valign="top">
@@ -340,6 +387,10 @@
                                 <tr>
                                         <td>Password:</td>
                                         <td><input type='text' name='password' style='width: 250px;'></td>
+                                 </tr>
+                                <tr>
+                                        <td>Last Pay:</td>
+					<td><input type="date" name="lastpay"></td>
                                  </tr>
                                 <tr>
 					<td colspan='2'>

@@ -1,5 +1,5 @@
 <?php
-if (empty($_POST['name']) && empty($_POST['email']) && empty($_POST['sms']) && empty($_POST['password']))
+if (empty($_POST['name']) && empty($_POST['email']) && empty($_POST['sms']) && empty($_POST['password']) && empty($_POST['lastpay']))
 {
     die('<h1>Direct File Access Prohibited</h1>');
 }
@@ -18,6 +18,7 @@ if ($_POST['id'] == "blank")
 	$newname = $_POST['name'];
 	$newemail = $_POST['email'];
 	$newsms = $_POST['sms'];
+	$newlastpay = $_POST['lastpay'];
 	$newpassword = password_hash($_POST['password'],PASSWORD_DEFAULT);
 	$group = substr($_POST['id'],0,1);
 	$id = substr($_POST['id'],2);
@@ -47,6 +48,12 @@ if ($_POST['id'] == "blank")
 		if (!empty($_POST['password']))
 	        {
 			$queryupdateuser = "UPDATE user SET password = '$newpassword' WHERE id = '$id';";
+		        $updateuser = mysqli_query($db, $queryupdateuser);
+		}
+
+		if (!empty($_POST['lastpay']))
+	        {
+			$queryupdateuser = "UPDATE user SET last_pay = '$newlastpay' WHERE id = '$id';";
 		        $updateuser = mysqli_query($db, $queryupdateuser);
 		}
 	}

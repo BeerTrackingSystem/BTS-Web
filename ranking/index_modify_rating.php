@@ -42,7 +42,12 @@ if (!defined('index_origin'))
                                 <br><br>
                                 <tr>
                                         <td colspan='2'>
-                                                <input type='number' name='rating' style='width: 50px;'>
+						<?php
+							$querygetminmaxrate = "SELECT value AS min_rate, (SELECT value AS max_rate FROM misc WHERE object = 'beer_rank' AND attribute = 'max_rate') AS max_rate FROM misc WHERE object = 'beer_rank' AND attribute = 'min_rate';";
+                                                        $resultgetminmaxrate = mysqli_query($db, $querygetminmaxrate);
+							$minmax_rate = mysqli_fetch_array($resultgetminmaxrate);
+						?>
+							<input type='number' name='rating' min='<?php echo $minmax_rate['min_rate'] ?>' max='<?php echo $minmax_rate['max_rate'] ?>' style='width: 50px;'>
                                                 <input type='submit' value='Submit'>
                                         </td>
                                 </tr>

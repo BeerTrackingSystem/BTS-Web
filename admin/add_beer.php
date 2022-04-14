@@ -14,8 +14,11 @@ if (empty($_POST['newbeer']) || $_POST['breweryid'] == 'blank')
 	$breweryid = $_POST['breweryid'];
 	$style = $_POST['style'];
 
-	$queryaddbeer = "INSERT INTO beers (name, breweryid, style) VALUES ('$newbeer', '$breweryid', '$style');";
-	$resultaddbeer = mysqli_query($db, $queryaddbeer);
+	$queryaddbeer = "INSERT INTO beers (name, breweryid, style) VALUES (?, ?, ?);";
+	$prepaddbeer = mysqli_prepare($db, $queryaddbeer);
+	mysqli_stmt_bind_param ($prepaddbeer, 'sis', $newbeer, $breweryid, $style);
+	mysqli_stmt_execute($prepaddbeer);
+	$resultaddbeer = mysqli_stmt_get_result($prepaddbeer);
 
 	header("Location: https://$_SERVER[HTTP_HOST]/admin");
 ?>

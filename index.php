@@ -58,8 +58,24 @@
 		?>
 		<link rel="Favicon" href="favicon.ico" type="image/x-icon"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<style>
+			#version {
+				float: left;
+				margin: 5px;
+				position: absolute;
+			}
+		</style>
 	</head>
 	<body>
+		<p id="version">
+			<?php
+				$querybtsversion = "SELECT value AS version FROM misc WHERE object = 'general' AND attribute = 'version';";
+	        		$resultbtsversion = mysqli_query($db, $querybtsversion);
+				$btsversion = mysqli_fetch_array($resultbtsversion);
+				#DONOT delete this - You are allowed to change the link to your forked repo, otherwise keepit as it is
+				echo "<a href='https://github.com/MDITSA/BeerTrackingSystem#readme' target='_blank'>BTS: " . $btsversion['version'] . "</a>";
+			?>
+		</p>
 		<?php
 			if (!isset($mobile))
 			{
@@ -70,7 +86,7 @@
 				echo "<center><h1>$headingmobile</h1></center>";
 			}
 
-			$querymotdactivation = "SELECT value AS activation FROM misc WHERE object = 'motd' AND attribute = 'activation';;";
+			$querymotdactivation = "SELECT value AS activation FROM misc WHERE object = 'motd' AND attribute = 'activation';";
         		$resultmotdactivation = mysqli_query($db, $querymotdactivation);
 			$motdactivation = mysqli_fetch_array($resultmotdactivation);
 
@@ -169,6 +185,7 @@
 			include 'veterans_visit.php';
 		?>
 	</center>
+
                 <script src='support/overlay-widget.js'></script>
                 <script>
                         kofiWidgetOverlay.draw('mditsa', {

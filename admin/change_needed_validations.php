@@ -25,8 +25,11 @@ else
 {
 	if ($pastrikeid != 'blank')
 	{
-		$querycurrentvalacc = "SELECT validations_acc FROM pending_strikes_add WHERE id = '$pastrikeid';";
-                $resultcurrentvalacc = mysqli_query($db, $querycurrentvalacc);	
+		$querycurrentvalacc = "SELECT validations_acc FROM pending_strikes_add WHERE id = ?;";
+		$prepcurrentvalacc = mysqli_prepare($db, $querycurrentvalacc);
+		mysqli_stmt_bind_param ($prepcurrentvalacc, 'i', $pastrikeid);
+		mysqli_stmt_execute($prepcurrentvalacc);
+		$resultcurrentvalacc = mysqli_stmt_get_result($prepcurrentvalacc);
 		while ($row = $resultcurrentvalacc->fetch_assoc()) 
 		{
                 	$currentvalacc = $row['validations_acc'];
@@ -41,8 +44,11 @@ else
 
 		if ($newneededvalidations >= $minneededvalidations && $newneededvalidations <= $maxneededvalidations)
 		{
-			$querycurrentvalneeded = "SELECT validations_needed FROM pending_strikes_add WHERE id = '$pastrikeid';";
-	                $resultcurrentvalneeded = mysqli_query($db, $querycurrentvalneeded);	
+			$querycurrentvalneeded = "SELECT validations_needed FROM pending_strikes_add WHERE id = ?;";
+			$prepcurrentvalneeded = mysqli_prepare($db, $querycurrentvalneeded);
+			mysqli_stmt_bind_param ($prepcurrentvalneeded, 'i', $pastrikeid);
+			mysqli_stmt_execute($prepcurrentvalneeded);
+			$resultcurrentvalneeded = mysqli_stmt_get_result($prepcurrentvalneeded);
 			while ($row = $resultcurrentvalneeded->fetch_assoc()) 
 			{
                 		$currentvalneeded = $row['validations_needed'];
@@ -50,16 +56,23 @@ else
 
 			if ($newneededvalidations > $currentvalneeded)
 			{
-				$querycodesavail = "SELECT id FROM validate_strikes_add WHERE psaid = '$pastrikeid';";
-	        	        $resultcodesavail = mysqli_query($db, $querycodesavail);
-				$current_code_count = mysqli_num_rows($resultcodesavail);
+				$querycodesavail = "SELECT id FROM validate_strikes_add WHERE psaid = ?;";
+				$prepcodesavail = mysqli_prepare($db, $querycodesavail);
+				mysqli_stmt_bind_param ($prepcodesavail, 'i', $pastrikeid);
+				mysqli_stmt_execute($prepcodesavail);
+				$resultcodesavail = mysqli_stmt_get_result($prepcodesavail);
 
+				$current_code_count = mysqli_num_rows($resultcodesavail);
 				$neededcodes = $newneededvalidations - $currentvalacc;
 
 				if ($current_code_count >= $neededcodes)
 				{
-					$queryupdatevalneeded = "UPDATE pending_strikes_add SET validations_needed = '$newneededvalidations' WHERE id = '$pastrikeid';";
-	                                $resultupdatevalneeded = mysqli_query($db, $queryupdatevalneeded);
+					$queryupdatevalneeded = "UPDATE pending_strikes_add SET validations_needed = ? WHERE id = ?;";
+					$prepupdatevalneeded = mysqli_prepare($db, $queryupdatevalneeded);
+					mysqli_stmt_bind_param ($prepupdatevalneeded, 'ii', $newneededvalidations, $pastrikeid);
+					mysqli_stmt_execute($prepupdatevalneeded);
+					$resultupdatevalneeded = mysqli_stmt_get_result($prepupdatevalneeded);
+
         	                        header("Location: https://$_SERVER[HTTP_HOST]/admin");
 				}
 				else
@@ -94,8 +107,12 @@ else
 			}
 			else
 			{
-				$queryupdatevalneeded = "UPDATE pending_strikes_add SET validations_needed = '$newneededvalidations' WHERE id = '$pastrikeid';";
-	                        $resultupdatevalneeded = mysqli_query($db, $queryupdatevalneeded);
+				$queryupdatevalneeded = "UPDATE pending_strikes_add SET validations_needed = ? WHERE id = ?;";
+				$prepupdatevalneeded = mysqli_prepare($db, $queryupdatevalneeded);
+				mysqli_stmt_bind_param ($prepupdatevalneeded, 'ii', $newneededvalidations, $pastrikeid);
+				mysqli_stmt_execute($prepupdatevalneeded);
+				$resultupdatevalneeded = mysqli_stmt_get_result($prepupdatevalneeded);
+
 				header("Location: https://$_SERVER[HTTP_HOST]/admin");
 			}
 		}
@@ -107,8 +124,11 @@ else
 	}
 	elseif ($pdstrikeid != 'blank')
 	{
-                $querycurrentvalacc = "SELECT validations_acc FROM pending_strikes_del WHERE id = '$pdstrikeid';";
-                $resultcurrentvalacc = mysqli_query($db, $querycurrentvalacc);
+                $querycurrentvalacc = "SELECT validations_acc FROM pending_strikes_del WHERE id = ?;";
+		$prepcurrentvalacc = mysqli_prepare($db, $querycurrentvalacc);
+		mysqli_stmt_bind_param ($prepcurrentvalacc, 'i', $pdstrikeid);
+		mysqli_stmt_execute($prepcurrentvalacc);
+		$resultcurrentvalacc = mysqli_stmt_get_result($prepcurrentvalacc);
                 while ($row = $resultcurrentvalacc->fetch_assoc())
                 {
                         $currentvalacc = $row['validations_acc'];
@@ -123,8 +143,11 @@ else
 
                 if ($newneededvalidations >= $minneededvalidations && $newneededvalidations <= $maxneededvalidations)
                 {
-                        $querycurrentvalneeded = "SELECT validations_needed FROM pending_strikes_del WHERE id = '$pdstrikeid';";
-                        $resultcurrentvalneeded = mysqli_query($db, $querycurrentvalneeded);
+                        $querycurrentvalneeded = "SELECT validations_needed FROM pending_strikes_del WHERE id = ?;";
+			$prepcurrentvalneeded = mysqli_prepare($db, $querycurrentvalneeded);
+			mysqli_stmt_bind_param ($prepcurrentvalneeded, 'i', $pdstrikeid);
+			mysqli_stmt_execute($prepcurrentvalneeded);
+			$resultcurrentvalneeded = mysqli_stmt_get_result($prepcurrentvalneeded);
                         while ($row = $resultcurrentvalneeded->fetch_assoc())
                         {
                                 $currentvalneeded = $row['validations_needed'];
@@ -132,16 +155,23 @@ else
 
                         if ($newneededvalidations > $currentvalneeded)
                         {
-                                $querycodesavail = "SELECT id FROM validate_strikes_del WHERE psdid = '$pdstrikeid';";
-                                $resultcodesavail = mysqli_query($db, $querycodesavail);
-                                $current_code_count = mysqli_num_rows($resultcodesavail);
+                                $querycodesavail = "SELECT id FROM validate_strikes_del WHERE psdid = ?;";
+				$prepcodesavail = mysqli_prepare($db, $querycodesavail);
+				mysqli_stmt_bind_param ($prepcodesavail, 'i', $pdstrikeid);
+				mysqli_stmt_execute($prepcodesavail);
+				$resultcodesavail = mysqli_stmt_get_result($prepcodesavail);
 
+                                $current_code_count = mysqli_num_rows($resultcodesavail);
                                 $neededcodes = $newneededvalidations - $currentvalacc;
 
                                 if ($current_code_count >= $neededcodes)
                                 {
-                                        $queryupdatevalneeded = "UPDATE pending_strikes_del SET validations_needed = '$newneededvalidations' WHERE id = '$pdstrikeid';";
-                                        $resultupdatevalneeded = mysqli_query($db, $queryupdatevalneeded);
+                                        $queryupdatevalneeded = "UPDATE pending_strikes_del SET validations_needed = ? WHERE id = ?;";
+					$prepupdatevalneeded = mysqli_prepare($db, $queryupdatevalneeded);
+					mysqli_stmt_bind_param ($prepupdatevalneeded, 'ii', $newneededvalidations, $pdstrikeid);
+					mysqli_stmt_execute($prepupdatevalneeded);
+					$resultupdatevalneeded = mysqli_stmt_get_result($prepupdatevalneeded);
+
                                         header("Location: https://$_SERVER[HTTP_HOST]/admin");
                                 }
                                 else
@@ -176,8 +206,12 @@ else
                         }
                         else
                         {
-                                $queryupdatevalneeded = "UPDATE pending_strikes_del SET validations_needed = '$newneededvalidations' WHERE id = '$pdstrikeid';";
-                                $resultupdatevalneeded = mysqli_query($db, $queryupdatevalneeded);
+                                $queryupdatevalneeded = "UPDATE pending_strikes_del SET validations_needed = ? WHERE id = ?;";
+				$prepupdatevalneeded = mysqli_prepare($db, $queryupdatevalneeded);
+				mysqli_stmt_bind_param ($prepupdatevalneeded, 'ii', $newneededvalidations, $pdstrikeid);
+				mysqli_stmt_execute($prepupdatevalneeded);
+				$resultupdatevalneeded = mysqli_stmt_get_result($prepupdatevalneeded);
+
                                 header("Location: https://$_SERVER[HTTP_HOST]/admin");
                         }
                 }

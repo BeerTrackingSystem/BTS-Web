@@ -12,7 +12,11 @@ if (!isset($_POST['newstock']))
 <?php
 	$newstock = $_POST['newstock'];
 
-	$querydelcode = "UPDATE current_stock SET amount = '$newstock' WHERE id LIKE '1';";
-        $resultdelcode = mysqli_query($db, $querydelcode);
+	$querydelcode = "UPDATE current_stock SET amount = ? WHERE id LIKE '1';";
+	$prepdelcode = mysqli_prepare($db, $querydelcode);
+	mysqli_stmt_bind_param ($prepdelcode, 'i', $newstock);
+	mysqli_stmt_execute($prepdelcode);
+	$resultdelcode = mysqli_stmt_get_result($prepdelcode);
+
 	header("Location: http://$_SERVER[HTTP_HOST]");
 ?>

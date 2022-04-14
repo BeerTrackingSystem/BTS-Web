@@ -13,11 +13,17 @@ if (empty($_POST['quoteid']))
 	$quoteid = $_POST['quoteid'];
 	$currentdate = date('Y-m-d');
 
-	$querychangequote = "UPDATE motd SET quoteid = '$quoteid' WHERE `change` LIKE '$currentdate';";
-        $changequote = mysqli_query($db, $querychangequote);
+	$querychangequote = "UPDATE motd SET quoteid = ? WHERE `change` = ?;";
+	$prepchangequote = mysqli_prepare($db, $querychangequote);
+	mysqli_stmt_bind_param ($prepchangequote, 'is', $quoteid, $currentdate);
+	mysqli_stmt_execute($prepchangequote);
+	$resultchangequote = mysqli_stmt_get_result($prepchangequote);
 
-	$queryupdatequote = "UPDATE quotes SET lastused = curdate() WHERE id LIKE '$quoteid';";
-        $resultupdatequote = mysqli_query($db, $queryupdatequote);
+	$queryupdatequote = "UPDATE quotes SET lastused = curdate() WHERE id = ?;";
+	$prepupdatequote = mysqli_prepare($db, $queryupdatequote);
+	mysqli_stmt_bind_param ($prepupdatequote, 'i', $quoteid);
+	mysqli_stmt_execute($prepupdatequote);
+	$resultupdatequote = mysqli_stmt_get_result($prepupdatequote);
 
 	header("Location: https://$_SERVER[HTTP_HOST]/admin");
 ?>

@@ -1,8 +1,11 @@
 <?php
 define('index_origin', true);
 include '../db.inc.php';
-$querygetattributes = "SELECT attribute FROM misc WHERE object ='" . $_POST['miscobject'] . "' ORDER BY attribute ASC";
-$resultgetattributes = mysqli_query($db, $querygetattributes);
+$querygetattributes = "SELECT attribute FROM misc WHERE object = ? ORDER BY attribute ASC";
+$prepgetattributes = mysqli_prepare($db, $querygetattributes);
+mysqli_stmt_bind_param ($prepgetattributes, 's', $_POST['miscobject']);
+mysqli_stmt_execute($prepgetattributes);
+$resultgetattributes = mysqli_stmt_get_result($prepgetattributes);
 ?>
 <select name="miscattribute" id="miscattribute">
 	<option value="blank">Select object first</option>

@@ -17,8 +17,11 @@ if (!defined('index_origin'))
 		echo "<tr>";
 		$brewery = $row['brewery'];
 
-		$querybeers = "SELECT beers.name AS beername from beers INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = '" . $brewery ."'";
-		$resultbeers = mysqli_query($db, $querybeers);
+		$querybeers = "SELECT beers.name AS beername from beers INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = ?;";
+		$prepbeers = mysqli_prepare($db, $querybeers);
+		mysqli_stmt_bind_param ($prepbeers, 's', $brewery);
+		mysqli_stmt_execute($prepbeers);
+		$resultbeers = mysqli_stmt_get_result($prepbeers);
 
 		$firsttable = true;
 
@@ -37,8 +40,11 @@ if (!defined('index_origin'))
 			$beername = $row['beername'];
 
 
-		$queryratings = "SELECT beers.style, user.name AS username, ranking_beers.rating FROM beers INNER JOIN ranking_beers ON beers.id = ranking_beers.beerid INNER JOIN user ON ranking_beers.userid = user.id INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = '" . $brewery . "' AND beers.name = '" . $beername . "' ORDER BY username ASC;";
-		$resultratings = mysqli_query($db, $queryratings);
+		$queryratings = "SELECT beers.style, user.name AS username, ranking_beers.rating FROM beers INNER JOIN ranking_beers ON beers.id = ranking_beers.beerid INNER JOIN user ON ranking_beers.userid = user.id INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = ? AND beers.name = ? ORDER BY username ASC;";
+		$prepratings = mysqli_prepare($db, $queryratings);
+		mysqli_stmt_bind_param ($prepratings, 'ss', $brewery, $beername);
+		mysqli_stmt_execute($prepratings);
+		$resultratings = mysqli_stmt_get_result($prepratings);
 
 		echo "<table border='1'>
 		<thead>
@@ -61,8 +67,11 @@ if (!defined('index_origin'))
 			echo "</tr>";
 		}
 
-		$queryaverage = "SELECT avg(ranking_beers.rating) AS average FROM ranking_beers INNER JOIN beers ON ranking_beers.beerid = beers.id INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = '" . $brewery . "' AND beers.name = '" . $beername . "';";
-		$resultaverage = mysqli_query($db, $queryaverage);
+		$queryaverage = "SELECT avg(ranking_beers.rating) AS average FROM ranking_beers INNER JOIN beers ON ranking_beers.beerid = beers.id INNER JOIN breweries ON beers.breweryid = breweries.id WHERE breweries.name = ? AND beers.name = ?;";
+		$prepaverage = mysqli_prepare($db, $queryaverage);
+		mysqli_stmt_bind_param ($prepaverage, 'ss', $brewery, $beername);
+		mysqli_stmt_execute($prepaverage);
+		$resultaverage = mysqli_stmt_get_result($prepaverage);
 
 		echo "<tfoot>";
 		echo "<tr>";

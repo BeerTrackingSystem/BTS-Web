@@ -8,8 +8,11 @@ if(!empty($_POST["name"]) && !empty($_POST["password"]))
         $username = $_POST['name'];
         $password = $_POST['password'];
 
-        $queryhash = "SELECT password FROM user WHERE name LIKE '$username';";
-        $resulthash = mysqli_query($db, $queryhash);
+        $queryhash = "SELECT password FROM user WHERE name = ?;";
+	$prephash = mysqli_prepare($db, $queryhash);
+	mysqli_stmt_bind_param ($prephash, 's', $username);
+	mysqli_stmt_execute($prephash);
+	$resulthash = mysqli_stmt_get_result($prephash);
 
         while ($row = $resulthash->fetch_assoc()) {
                 $hash = $row['password'];

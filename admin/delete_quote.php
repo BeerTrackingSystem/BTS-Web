@@ -12,11 +12,17 @@ if (empty($_POST['quoteid']))
 <?php
 	$quoteid = $_POST['quoteid'];
 
-	$querychangequote = "DELETE FROM motd WHERE quoteid = '$quoteid';";
-        $changequote = mysqli_query($db, $querychangequote);
+	$querydelmotdquote = "DELETE FROM motd WHERE quoteid = ?;";
+	$prepdelmotdquote = mysqli_prepare($db, $querydelmotdquote);
+	mysqli_stmt_bind_param ($prepdelmotdquote, 'i', $quoteid);
+	mysqli_stmt_execute($prepdelmotdquote);
+	$resultdelmotdquote = mysqli_stmt_get_result($prepdelmotdquote);
 
-	$queryupdatequote = "DELETE FROM quotes WHERE id LIKE '$quoteid';";
-        $resultupdatequote = mysqli_query($db, $queryupdatequote);
+	$querydeletequote = "DELETE FROM quotes WHERE id = ?;";
+	$prepdeletequote = mysqli_prepare($db, $querydeletequote);
+	mysqli_stmt_bind_param ($prepdeletequote, 'i', $quoteid);
+	mysqli_stmt_execute($prepdeletequote);
+	$resultdeletequote = mysqli_stmt_get_result($prepdeletequote);
 
 	header("Location: https://$_SERVER[HTTP_HOST]/admin");
 ?>

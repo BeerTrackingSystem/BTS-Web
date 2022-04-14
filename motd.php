@@ -15,8 +15,11 @@ if (!defined('index_origin'))
 
 
 	if ($lastchange == $currentdate) {
-		$querymotd = "SELECT quote FROM quotes INNER JOIN motd ON quotes.id = motd.quoteid WHERE motd.quoteid LIKE '$lastquoteid';";
-		$resultmotd = mysqli_query($db, $querymotd);
+		$querymotd = "SELECT quote FROM quotes INNER JOIN motd ON quotes.id = motd.quoteid WHERE motd.quoteid = ?;";
+		$prepmotd = mysqli_prepare($db, $querymotd);
+		mysqli_stmt_bind_param ($prepmotd, 'i', $lastquoteid);
+		mysqli_stmt_execute($prepmotd);
+		$resultmotd = mysqli_stmt_get_result($prepmotd);
 		$motdrow = mysqli_fetch_array($resultmotd);
 
 		$motd = $motdrow['quote'];
@@ -38,8 +41,11 @@ if (!defined('index_origin'))
 
 			$newmotdid = $newmotdrow['quoteid'];	
 	
-			$queryupdatequote = "UPDATE quotes SET lastused = curdate() WHERE id LIKE '$newmotdid';";
-			$resultupdatequote = mysqli_query($db, $queryupdatequote);
+			$queryupdatequote = "UPDATE quotes SET lastused = curdate() WHERE id = ?;";
+			$prepupdatequote = mysqli_prepare($db, $queryupdatequote);
+			mysqli_stmt_bind_param ($prepupdatequote, 'i', $newmotdid);
+			mysqli_stmt_execute($prepupdatequote);
+			$resultupdatequote = mysqli_stmt_get_result($prepupdatequote);
 		}
 		else
 		{

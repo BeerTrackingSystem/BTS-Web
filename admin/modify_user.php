@@ -29,32 +29,47 @@ if ($_POST['id'] == "blank")
 	{
 		if (!empty($_POST['name']))
 		{
-			$queryupdateuser = "UPDATE user SET name = '$newname' WHERE id = '$id';";
-		        $updateuser = mysqli_query($db, $queryupdateuser);
+			$queryupdateuser = "UPDATE user SET name = ? WHERE id = ?;";
+			$prepupdateuser = mysqli_prepare($db, $queryupdateuser);
+			mysqli_stmt_bind_param ($prepupdateuser, 'si', $newname, $id);
+			mysqli_stmt_execute($prepupdateuser);
+			$resultupdateuser = mysqli_stmt_get_result($prepupdateuser);
 		}
 
 		if (!empty($_POST['email']))
 		{
-			$queryupdateuser = "UPDATE user SET email = '$newemail' WHERE id = '$id';";
-		        $updateuser = mysqli_query($db, $queryupdateuser);
+			$queryupdateuser = "UPDATE user SET email = ? WHERE id = ?;";
+			$prepupdateuser = mysqli_prepare($db, $queryupdateuser);
+                        mysqli_stmt_bind_param ($prepupdateuser, 'si', $newemail, $id);
+                        mysqli_stmt_execute($prepupdateuser);
+                        $resultupdateuser = mysqli_stmt_get_result($prepupdateuser);
 		}
 
 		if (!empty($_POST['sms']))
 	        {
-			$queryupdateuser = "UPDATE user SET sms = '$newsms' WHERE id = '$id';";
-		        $updateuser = mysqli_query($db, $queryupdateuser);
+			$queryupdateuser = "UPDATE user SET sms = ? WHERE id = ?;";
+			$prepupdateuser = mysqli_prepare($db, $queryupdateuser);
+                        mysqli_stmt_bind_param ($prepupdateuser, 'ii', $newsms, $id);
+                        mysqli_stmt_execute($prepupdateuser);
+                        $resultupdateuser = mysqli_stmt_get_result($prepupdateuser);
 		}
 
 		if (!empty($_POST['password']))
 	        {
-			$queryupdateuser = "UPDATE user SET password = '$newpassword' WHERE id = '$id';";
-		        $updateuser = mysqli_query($db, $queryupdateuser);
+			$queryupdateuser = "UPDATE user SET password = ? WHERE id = ?;";
+			$prepupdateuser = mysqli_prepare($db, $queryupdateuser);
+                        mysqli_stmt_bind_param ($prepupdateuser, 'si', $newpassword, $id);
+                        mysqli_stmt_execute($prepupdateuser);
+                        $resultupdateuser = mysqli_stmt_get_result($prepupdateuser);
 		}
 
 		if (!empty($_POST['lastpay']))
 	        {
-			$queryupdateuser = "UPDATE user SET last_pay = '$newlastpay' WHERE id = '$id';";
-		        $updateuser = mysqli_query($db, $queryupdateuser);
+			$queryupdateuser = "UPDATE user SET last_pay = ? WHERE id = ?;";
+			$prepupdateuser = mysqli_prepare($db, $queryupdateuser);
+                        mysqli_stmt_bind_param ($prepupdateuser, 'si', $newlastpay, $id);
+                        mysqli_stmt_execute($prepupdateuser);
+                        $resultupdateuser = mysqli_stmt_get_result($prepupdateuser);
 		}
 	}
 
@@ -62,26 +77,38 @@ if ($_POST['id'] == "blank")
         {
                 if (!empty($_POST['name']))
                 {
-                        $queryupdateveteran = "UPDATE veterans SET name = '$newname' WHERE id = '$id';";
-                        $updateveteran = mysqli_query($db, $queryupdateveteran);
+                        $queryupdateveteran = "UPDATE veterans SET name = ? WHERE id = ?;";
+			$prepupdateveteran = mysqli_prepare($db, $queryupdateveteran);
+                        mysqli_stmt_bind_param ($prepupdateveteran, 'si', $newname, $id);
+                        mysqli_stmt_execute($prepupdateveteran);
+                        $resultupdateveteran = mysqli_stmt_get_result($prepupdateveteran);
                 }
 
                 if (!empty($_POST['email']))
                 {
-                        $queryupdateveteran = "UPDATE veterans SET email = '$newemail' WHERE id = '$id';";
-                        $updateveteran = mysqli_query($db, $queryupdateveteran);
+                        $queryupdateveteran = "UPDATE veterans SET email = ? WHERE id = ?;";
+			$prepupdateveteran = mysqli_prepare($db, $queryupdateveteran);
+                        mysqli_stmt_bind_param ($prepupdateveteran, 'si', $newemail, $id);
+                        mysqli_stmt_execute($prepupdateveteran);
+                        $resultupdateveteran = mysqli_stmt_get_result($prepupdateveteran);
                 }
 
                 if (!empty($_POST['sms']))
                 {
-                        $queryupdateveteran = "UPDATE veterans SET sms = '$newsms' WHERE id = '$id';";
-                        $updateveteran = mysqli_query($db, $queryupdateveteran);
+                        $queryupdateveteran = "UPDATE veterans SET sms = ? WHERE id = ?;";
+			$prepupdateveteran = mysqli_prepare($db, $queryupdateveteran);
+                        mysqli_stmt_bind_param ($prepupdateveteran, 'ii', $newsms, $id);
+                        mysqli_stmt_execute($prepupdateveteran);
+                        $resultupdateveteran = mysqli_stmt_get_result($prepupdateveteran);
                 }
 
                 if (!empty($_POST['password']))
                 {
-                        $queryupdateveteran = "UPDATE veterans SET password = '$newpassword' WHERE id = '$id';";
-                        $updateveteran = mysqli_query($db, $queryupdateveteran);
+                        $queryupdateveteran = "UPDATE veterans SET password = ? WHERE id = ?;";
+			$prepupdateveteran = mysqli_prepare($db, $queryupdateveteran);
+                        mysqli_stmt_bind_param ($prepupdateveteran, 'si', $newpassword, $id);
+                        mysqli_stmt_execute($prepupdateveteran);
+                        $resultupdateveteran = mysqli_stmt_get_result($prepupdateveteran);
                 }
         }
 	

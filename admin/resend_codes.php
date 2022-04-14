@@ -23,8 +23,11 @@ $deldelcodeid = $_POST['deldelcodes'];
 $subject = "Resended Code";
 if ( $addcodeid != 'blank')
 {
-			$queryinfos = "SELECT email, validate_strikes_add.code, pending_strikes_add.reason FROM user INNER JOIN validate_strikes_add ON user.id = validate_strikes_add.userid INNER JOIN pending_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid WHERE validate_strikes_add.id = '$addcodeid';";
-		        $infos = mysqli_query($db, $queryinfos);
+			$queryinfos = "SELECT email, validate_strikes_add.code, pending_strikes_add.reason FROM user INNER JOIN validate_strikes_add ON user.id = validate_strikes_add.userid INNER JOIN pending_strikes_add ON pending_strikes_add.id = validate_strikes_add.psaid WHERE validate_strikes_add.id = ?;";
+			$prepinfos = mysqli_prepare($db, $queryinfos);
+			mysqli_stmt_bind_param ($prepinfos, 'i', $addcodeid);
+			mysqli_stmt_execute($prepinfos);
+			$infos = mysqli_stmt_get_result($prepinfos);
 
 			while($row = mysqli_fetch_array($infos))
         		{
@@ -38,8 +41,11 @@ if ( $addcodeid != 'blank')
 }
 if ($delcodeid != 'blank')
 {
-	$queryinfos = "SELECT email, validate_strikes_del.code, pending_strikes_del.reason FROM user INNER JOIN validate_strikes_del ON user.id = validate_strikes_del.userid INNER JOIN pending_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.id = '$delcodeid';";
-                        $infos = mysqli_query($db, $queryinfos);
+	$queryinfos = "SELECT email, validate_strikes_del.code, pending_strikes_del.reason FROM user INNER JOIN validate_strikes_del ON user.id = validate_strikes_del.userid INNER JOIN pending_strikes_del ON pending_strikes_del.id = validate_strikes_del.psdid WHERE validate_strikes_del.id = ?;";
+			$prepinfos = mysqli_prepare($db, $queryinfos);
+                        mysqli_stmt_bind_param ($prepinfos, 'i', $delcodeid);
+                        mysqli_stmt_execute($prepinfos);
+                        $infos = mysqli_stmt_get_result($prepinfos);
 
                         while($row = mysqli_fetch_array($infos))
                         {
@@ -53,8 +59,11 @@ if ($delcodeid != 'blank')
 }
 if ($deladdcodeid != 'blank')
 {
-        $queryinfos = "SELECT email, validate_del_strikes_add.code, pending_strikes_add.reason FROM user INNER JOIN validate_del_strikes_add ON user.id = validate_del_strikes_add.userid INNER JOIN pending_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid INNER JOIN pending_strikes_add ON pending_strikes_add.id = pending_del_strikes_add.psaid WHERE validate_del_strikes_add.id = '$deladdcodeid';";
-                        $infos = mysqli_query($db, $queryinfos);
+        $queryinfos = "SELECT email, validate_del_strikes_add.code, pending_strikes_add.reason FROM user INNER JOIN validate_del_strikes_add ON user.id = validate_del_strikes_add.userid INNER JOIN pending_del_strikes_add ON pending_del_strikes_add.id = validate_del_strikes_add.pdsaid INNER JOIN pending_strikes_add ON pending_strikes_add.id = pending_del_strikes_add.psaid WHERE validate_del_strikes_add.id = ?;";
+			$prepinfos = mysqli_prepare($db, $queryinfos);
+                        mysqli_stmt_bind_param ($prepinfos, 'i', $deladdcodeid);
+                        mysqli_stmt_execute($prepinfos);
+                        $infos = mysqli_stmt_get_result($prepinfos);
 
                         while($row = mysqli_fetch_array($infos))
                         {
@@ -68,8 +77,11 @@ if ($deladdcodeid != 'blank')
 }
 if ($deldelcodeid != 'blank')
 {
-        $queryinfos = "SELECT email, validate_del_strikes_del.code, pending_strikes_del.reason FROM user INNER JOIN validate_del_strikes_del ON user.id = validate_del_strikes_del.userid INNER JOIN pending_del_strikes_del ON pending_del_strikes_del.id = validate_del_strikes_del.pdsdid INNER JOIN pending_strikes_del ON pending_strikes_del.id = pending_del_strikes_del.psdid WHERE validate_del_strikes_del.id = '$deldelcodeid';";
-                        $infos = mysqli_query($db, $queryinfos);
+        $queryinfos = "SELECT email, validate_del_strikes_del.code, pending_strikes_del.reason FROM user INNER JOIN validate_del_strikes_del ON user.id = validate_del_strikes_del.userid INNER JOIN pending_del_strikes_del ON pending_del_strikes_del.id = validate_del_strikes_del.pdsdid INNER JOIN pending_strikes_del ON pending_strikes_del.id = pending_del_strikes_del.psdid WHERE validate_del_strikes_del.id = ?;";
+			$prepinfos = mysqli_prepare($db, $queryinfos);
+                        mysqli_stmt_bind_param ($prepinfos, 'i', $deldelcodeid);
+                        mysqli_stmt_execute($prepinfos);
+                        $infos = mysqli_stmt_get_result($prepinfos);
 
                         while($row = mysqli_fetch_array($infos))
                         {

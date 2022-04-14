@@ -34,12 +34,18 @@ if (!defined('index_origin'))
                 $event = 0;
         }
 
-	$queryrecipients = "SELECT id, email FROM user WHERE NOT name LIKE '$username' AND veteran = 0;";
-	$recipients = mysqli_query($db, $queryrecipients);
+	$queryrecipients = "SELECT id, email FROM user WHERE NOT name = ? AND veteran = 0;";
+	$preprecipients = mysqli_prepare($db, $queryrecipients);
+	mysqli_stmt_bind_param ($preprecipients, 's', $username);
+	mysqli_stmt_execute($preprecipients);
+	$recipients = mysqli_stmt_get_result($preprecipients);
 	$recipients_count = mysqli_num_rows($recipients);
 
-	$querydelpendingstrike = "INSERT INTO pending_strikes_del (userid, date, validations_needed, event, reason) SELECT user.id, curdate(), $recipients_count, $event, '$reason' FROM user WHERE user.name = '$username';";
-	$resultdelpendingstrike =  mysqli_query($db, $querydelpendingstrike);
+	$querydelpendingstrike = "INSERT INTO pending_strikes_del (userid, date, validations_needed, event, reason) SELECT user.id, curdate(), ?, ?, ? FROM user WHERE user.name = ?;";
+	$prepdelpendingstrike = mysqli_prepare($db, $querydelpendingstrike);
+	mysqli_stmt_bind_param ($prepdelpendingstrike, 'iiss', $recipients_count, $event, $reason, $username);
+	mysqli_stmt_execute($prepdelpendingstrike);
+	$resultdelpendingstrike = mysqli_stmt_get_result($prepdelpendingstrike);
 
 	$querydelpendingstrikeid = "SELECT id FROM pending_strikes_del ORDER BY pending_strikes_del.id DESC LIMIT 1;";
 	$resultdelpendingstrikeid =  mysqli_query($db, $querydelpendingstrikeid);
@@ -55,7 +61,11 @@ if (!defined('index_origin'))
 		#A few nice words to say when a strike deletion must be validated - don't change the link at the end!
 		$message = "Es wurde eine Buße vollbracht!\n\n$username hat für seine Gräueltaten bezahlt: $reason \n\nMöge ihm vergeben werden: https://$_SERVER[HTTP_HOST]/valdel.php?valcode=$code";
 		mail($to, $subject, $message, $headers);
-		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code, userid) VALUES ('$delpendingstrikeid', '$code', '$userid');";
-		$resultdelvalidatecode =  mysqli_query($db, $querydelvalidatecode);
+
+		$querydelvalidatecode = "INSERT INTO validate_strikes_del (psdid, code, userid) VALUES (?, ?, ?);";
+		$prepdelvalidatecode = mysqli_prepare($db, $querydelvalidatecode);
+		mysqli_stmt_bind_param ($prepdelvalidatecode, 'isi', $delpendingstrikeid, $code, $userid);
+		mysqli_stmt_execute($prepdelvalidatecode);
+		$resultdelvalidatecode = mysqli_stmt_get_result($prepdelvalidatecode);
 	}
 ?>

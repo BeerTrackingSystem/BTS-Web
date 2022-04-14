@@ -31,7 +31,7 @@
 <center><table border=1>
 	<tr>
 		<td valign="top">
-			<form action="./create_user.php" method="post">
+			<form action="./add_user.php" method="post">
 				Create User:
 				<br><br>
 				<table>

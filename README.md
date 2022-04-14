@@ -27,16 +27,17 @@ Track your beer consumption!
 
 ### Installation
 1. Create database and database-user with grant on that database (name it yourway)
-2. Edit the database name in db_strucuture_X.X_base.sql to your needs
-3. Push the db_structure.sql file into your database. All required tables will be created
-4. Configure your webserver your way and set "index.php" as index page and for /admin the admin.php as index page
-5. Maybe secure the admin section, e.g. with htaccess
-6. Copy all files (except .sql file) into your web-root directory
-7. Modify the db.inc.php file (exchange database credentials with yours)
-8. Edit generate... and validate... files and change the "echo" outputs to your needs 
-9. Ofc you can exchange the favicon
-10. Set up the basics on the admin panel (create user, add quote, change titles/headings)
-11. Open a beer and try it out!
+2. Set event_scheduler=on in mysql/mariadb config
+3. Edit the database name in db_strucuture_X.X_base.sql to your needs
+4. Push the db_structure.sql file into your database. All required tables will be created
+5. Configure your webserver your way and set "index.php" as index page and for /admin the admin.php as index page
+6. Maybe secure the admin section, e.g. with htaccess
+7. Copy all files (except .sql file) into your web-root directory
+8. Modify the db.inc.php file (exchange database credentials with yours)
+9. Edit generate... and validate... files and change the "echo" outputs to your needs 
+10. Ofc you can exchange the favicon
+11. Set up the basics on the admin panel (create user, add quote, change titles/headings)
+12. Open a beer and try it out!
 
 
 ## Screenshots

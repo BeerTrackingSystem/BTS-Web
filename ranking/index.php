@@ -22,7 +22,7 @@
 <html>
 <head>
 <script src="../packages/jquery.min.js"></script>
-        <title><?php echo $title; ?></title>
+        <title><?php echo htmlspecialchars($title); ?></title>
 
 <script>
 $(document).ready(function(){

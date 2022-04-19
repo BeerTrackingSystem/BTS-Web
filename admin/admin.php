@@ -22,11 +22,11 @@
 
 <html>
 <head>
-	<title><?php echo $title; ?></title>
+	<title><?php echo htmlspecialchars($title); ?></title>
 </head>
 
 <body>
-<center><h1><?php echo $heading; ?></h1></center>
+<center><h1><?php echo htmlspecialchars($heading); ?></h1></center>
 
 <center><table border=1>
 	<tr>
@@ -95,7 +95,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpastrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -111,7 +111,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpdstrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -142,7 +142,7 @@
 	
 							while($row = mysqli_fetch_array($resultgetquotes))
 							{
-								echo "<option value='" . $row['id'] . "'>" .  $row['quote'] . "</option>" ;
+								echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['quote']) . "</option>" ;
 							}
 						?>
 					</select>
@@ -200,7 +200,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetaddcodes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>for " .  htmlspecialchars($row['name']) . ': ' . htmlspecialchars($row['code']) . ' = ' . htmlspecialchars($row['reason']) . "</option>" ;
 							}
 						?>
 					</select>
@@ -213,7 +213,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetdelcodes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>for " .  htmlspecialchars($row['name']) . ': ' . htmlspecialchars($row['code']) . ' = ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -232,7 +232,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetdeladdcodes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>for " .  htmlspecialchars($row['name']) . ': ' . htmlspecialchars($row['code']) . ' = ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
 						?>
                                         </select>
@@ -245,7 +245,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetdeldelcodes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>for " .  $row['name'] . ': ' . $row['code'] . ' = ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>for " .  htmlspecialchars($row['name']) . ': ' . htmlspecialchars($row['code']) . ' = ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -273,7 +273,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetquotes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['quote'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['quote']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -301,7 +301,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetobjects))
                                                         {
-                                                                echo "<option value='" . $row['object'] . "'>" . $row['object'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($row['object']) . "'>" . htmlspecialchars($row['object']) . "</option>";
                                                         }
                                                 ?>
                                         </select>
@@ -403,7 +403,7 @@
         	                                                while($row = mysqli_fetch_array($resultgetuser))
                 	                                        {
 									#0=user
-                        	                                        echo "<option value='0-" . $row['id'] . "'>" .  $row['name'] . "</option>" ;
+                        	                                        echo "<option value='0-" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['name']) . "</option>" ;
                                 	                        }
 								
 								$querygetveteran = "SELECT id, name FROM veterans;";
@@ -412,7 +412,7 @@
                                                                 while($row = mysqli_fetch_array($resultgetveteran))
                                                                 {
 									#1=veteran
-                                                                        echo "<option value='1-" . $row['id'] . "'>" .  $row['name'] . " (Veteran)</option>" ;
+                                                                        echo "<option value='1-" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['name']) . " (Veteran)</option>" ;
                                                                 }
                                         	        ?>
                                         	</select>
@@ -443,7 +443,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpastrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -458,7 +458,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpdstrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -474,7 +474,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpdastrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -489,7 +489,7 @@
 
                                                         while($row = mysqli_fetch_array($resultgetpddstrikes))
                                                         {
-                                                                echo "<option value='" . $row['id'] . "'>" .  $row['date'] . ' - ' . $row['name'] . ' - ' . $row['reason'] . "</option>" ;
+                                                                echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['date']) . ' - ' . htmlspecialchars($row['name']) . ' - ' . htmlspecialchars($row['reason']) . "</option>" ;
                                                         }
                                                 ?>
                                         </select>
@@ -522,7 +522,7 @@
 
                                                         	while($row = mysqli_fetch_array($resultgetbreweries))
                                                         	{
-                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                                	echo "<option value='" . htmlspecialchars($row['breweryid']) . "'>" . htmlspecialchars($row['brewery']) . "</option>";
                                                         	}
                                                 	?>
                                         	</select></td>
@@ -543,7 +543,7 @@
 
                                                         	while($row = mysqli_fetch_array($resultgetbreweries))
                                                         	{
-                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                                	echo "<option value='" . htmlspecialchars($row['breweryid']) . "'>" . htmlspecialchars($row['brewery']) . "</option>";
                                                         	}
                                                 	?>
                                         	</select></td>
@@ -563,7 +563,7 @@
 
                                                         	while($row = mysqli_fetch_array($resultgetbeers))
                                                         	{
-                                                                	echo "<option value='" . $row['beerid'] . "'>" . $row['brewery'] . " - " . $row['beer'] . "</option>";
+                                                                	echo "<option value='" . htmlspecialchars($row['beerid']) . "'>" . htmlspecialchars($row['brewery']) . " - " . htmlspecialchars($row['beer']) . "</option>";
                                                         	}
                                                 	?>
                                         	</select></td>
@@ -584,7 +584,7 @@
 
                                                         	while($row = mysqli_fetch_array($resultgetbreweries))
                                                         	{
-                                                                	echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                                	echo "<option value='" . htmlspecialchars($row['breweryid']) . "'>" . htmlspecialchars($row['brewery']) . "</option>";
                                                         	}
                                                 	?>
                                         	</select></td>
@@ -603,7 +603,7 @@
 
                                                         	while($row = mysqli_fetch_array($resultgetbeers))
                                                         	{
-                                                                	echo "<option value='" . $row['beerid'] . "'>" . $row['brewery'] . " - " . $row['beer'] . "</option>";
+                                                                	echo "<option value='" . htmlspecialchars($row['beerid']) . "'>" . htmlspecialchars($row['brewery']) . " - " . htmlspecialchars($row['beer']) . "</option>";
                                                         	}
                                                 	?>
                                         	</select></td>

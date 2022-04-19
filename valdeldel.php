@@ -13,7 +13,7 @@ if (!isset($_GET['valcode']))
 		<?php
 			$valcode = $_GET['valcode'];
 		
-		echo "<form action='/validatedeldel.php?valcode=$valcode' method='post'>
+		echo "<form action='/validatedeldel.php?valcode=" . htmlspecialchars($valcode) . "' method='post'>
 				<input type='submit' name='validation' value='Validate'>
 		      </form>"
 		?>

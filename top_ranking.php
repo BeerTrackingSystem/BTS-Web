@@ -19,9 +19,9 @@ echo "<center><table border='1'>
 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['brewery'] . "</td>";
-echo "<td>" . $row['beername'] . "</td>";
-echo "<td align='center'>" . $row['average'] . "</td>";
+echo "<td>" . htmlspecialchars($row['brewery']) . "</td>";
+echo "<td>" . htmlspecialchars($row['beername']) . "</td>";
+echo "<td align='center'>" . htmlspecialchars($row['average']) . "</td>";
 echo "</tr>";
 }
 echo "</table>";

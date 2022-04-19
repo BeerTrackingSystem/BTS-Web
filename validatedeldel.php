@@ -68,7 +68,7 @@ if (!isset($_GET['valcode']))
 				$resultsetvalidations_acc = mysqli_stmt_get_result($prepsetvalidations_acc);
 
 				$validations_left = $validations_left - 1;
-				echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch $validations_left Validierungen!";
+				echo "Validation wurde mit dem Code " . htmlspecialchars($valcode) . " erfolgreich durchgeführt! Es fehlen noch " . htmlspecialchars($validations_left) . " Validierungen!";
 
 		                $querydelcode = "DELETE FROM validate_del_strikes_del WHERE code = ?;";
 				$prepdelcode = mysqli_prepare($db, $querydelcode);
@@ -107,7 +107,7 @@ if (!isset($_GET['valcode']))
 				mysqli_stmt_execute($prepdelpendingstrike);
 				$resultdelpendingstrike = mysqli_stmt_get_result($prepdelpendingstrike);
 
-                		echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Alle $validations_needed Validationen sind erfolgt. Der Strike-Del wurde erfolgreich abgebrochen!";
+                		echo "Validation wurde mit dem Code " . htmlspecialchars($valcode) . " erfolgreich durchgeführt! Alle " . htmlspecialchars($validations_needed) . " Validationen sind erfolgt. Der Strike-Del wurde erfolgreich abgebrochen!";
 
 			}
 		}			

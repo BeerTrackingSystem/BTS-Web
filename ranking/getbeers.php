@@ -12,7 +12,7 @@ $resultgetbeers = mysqli_stmt_get_result($prepgetbeers);
   	<?php
 		while($row = mysqli_fetch_array($resultgetbeers))
 		{
-			echo "<option value='" . $row['beerid'] . "'>" . $row['beername'] . "</option>";
+			echo "<option value='" . htmlspecialchars($row['beerid']) . "'>" . htmlspecialchars($row['beername']) . "</option>";
 		}
 	?>
 </select>

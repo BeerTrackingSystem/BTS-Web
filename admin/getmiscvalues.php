@@ -7,5 +7,5 @@ mysqli_stmt_bind_param ($prepgetvalue, 'ss', $_POST['miscobject'], $_POST['misca
 mysqli_stmt_execute($prepgetvalue);
 $resultgetvalue = mysqli_stmt_get_result($prepgetvalue);
 $currentvalue = mysqli_fetch_array($resultgetvalue);
-echo $currentvalue['value'];
+echo htmlspecialchars($currentvalue['value']);
 ?>

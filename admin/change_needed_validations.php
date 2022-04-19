@@ -87,14 +87,14 @@ else
 					while($row = mysqli_fetch_array($resultuser))
                                 	{
 						$usercount = $usercount + 1;
-                                        	echo "<input type='checkbox' name='user$usercount' value='" . $row['name'] . "'>";
-						echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
+                                        	echo "<input type='checkbox' name='user" . htmlspecialchars($usercount) . "' value='" . $row['name'] . "'>";
+						echo "<label for='user" . htmlspecialchars($usercount) . "'>" . htmlspecialchars($row['name']) . "</label><br>";
 	                                }
 
 					echo '<script src="../packages/jquery.min.js"></script>
 						<script id="rendered-js">
 						$("input:checkbox").click(function () {
-						var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';
+						var bol = $("input:checkbox:checked").length >= ' . htmlspecialchars($newneededcodes) . ';
 						$("input:checkbox").not(":checked").attr("disabled", bol);
 						});
 						</script>';
@@ -118,7 +118,7 @@ else
 		}
 		else
 		{
-			echo '<script>alert("The value must be ' . $minneededvalidations . ' <= X <= ' . $maxneededvalidations . '");</script>';
+			echo '<script>alert("The value must be ' . htmlspecialchars($minneededvalidations) . ' <= X <= ' . htmlspecialchars($maxneededvalidations) . '");</script>';
 			echo '<script>location.replace(\'http://' . $_SERVER[HTTP_HOST] . '/admin\')</script>';
 		}
 	}
@@ -186,14 +186,14 @@ else
                                         while($row = mysqli_fetch_array($resultuser))
                                         {
                                                 $usercount = $usercount + 1;
-                                                echo "<input type='checkbox' name='user$usercount' value='" . $row['name'] . "'>";
-                                                echo "<label for='user$usercount'>" . $row['name'] . "</label><br>";
+                                                echo "<input type='checkbox' name='user" . htmlspecialchars($usercount) . "' value='" . htmlspecialchars($row['name']) . "'>";
+                                                echo "<label for='user" . htmlspecialchars($usercount) . "'>" . htmlspecialchars($row['name']) . "</label><br>";
                                         }
 
                                         echo '<script src="../packages/jquery.min.js"></script>
                                                 <script id="rendered-js">
                                                 $("input:checkbox").click(function () {
-                                                var bol = $("input:checkbox:checked").length >= ' . $newneededcodes . ';
+                                                var bol = $("input:checkbox:checked").length >= ' . htmlspecialchars($newneededcodes) . ';
                                                 $("input:checkbox").not(":checked").attr("disabled", bol);
                                                 });
                                                 </script>';
@@ -217,7 +217,7 @@ else
                 }
                 else
                 {
-                        echo '<script>alert("The value must be ' . $minneededvalidations . ' <= X <= ' . $maxneededvalidations . '");</script>';
+                        echo '<script>alert("The value must be ' . htmlspecialchars($minneededvalidations) . ' <= X <= ' . htmlspecialchars($maxneededvalidations) . '");</script>';
                         echo '<script>location.replace(\'http://' . $_SERVER[HTTP_HOST] . '/admin\')</script>';
                 }
 	}

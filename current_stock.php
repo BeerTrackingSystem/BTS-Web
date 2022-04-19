@@ -20,7 +20,7 @@ if ($result_count == '1')
 	while($row = mysqli_fetch_array($result))
 	{
 		echo "<tr>";
-		echo "<td align='center'>" . $row['amount'] . "</td>";
+		echo "<td align='center'>" . htmlspecialchars($row['amount']) . "</td>";
 		echo "</tr>";
 	}
 	echo "</table>";

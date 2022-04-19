@@ -22,7 +22,7 @@ echo ">
 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['name'] . "</td>";
+echo "<td>" . htmlspecialchars($row['name']) . "</td>";
 echo "</tr>";
 }
 echo "</table>";

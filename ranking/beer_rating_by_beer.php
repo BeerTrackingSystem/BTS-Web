@@ -25,10 +25,10 @@ if (!defined('index_origin'))
 		while($row = mysqli_fetch_array($resultallratings))
 		{
 			echo "<tr>";
-			echo "<td>" . $row['brewery'] . "</td>";
-			echo "<td>" . $row['beername'] . "</td>";
-			echo "<td>" . $row['style'] . "</td>";
-			echo "<td><center>" . $row['rating'] . "</center></td>";
+			echo "<td>" . htmlspecialchars($row['brewery']) . "</td>";
+			echo "<td>" . htmlspecialchars($row['beername']) . "</td>";
+			echo "<td>" . htmlspecialchars($row['style']) . "</td>";
+			echo "<td><center>" . htmlspecialchars($row['rating']) . "</center></td>";
 			echo "</tr>";
 		}
 
@@ -42,7 +42,7 @@ if (!defined('index_origin'))
 		echo "<td colspan='3'>Overall Rating</td>";
 		while ($row = mysqli_fetch_array($resultaverage))
 		{
-			echo "<td>" . $row['average'] .  "</td>";
+			echo "<td>" . htmlspecialchars($row['average']) .  "</td>";
 		}
 		echo "</tr>";
 		echo "</tfoot>";

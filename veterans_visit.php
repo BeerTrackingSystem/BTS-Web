@@ -61,12 +61,12 @@ if (!defined('index_origin'))
 				while($row = mysqli_fetch_array($resultvisits))
 				{
 					echo "<tr>";
-					echo "<td>" . $row['date'] . "</td>";
-					echo "<td>" . $row['name'] . "</td>";
-					echo "<td>" . $row['notice'] . "</td>";
+					echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+					echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+					echo "<td>" . htmlspecialchars($row['notice']) . "</td>";
 					if (check_login($sessionid)[0] && check_login($sessionid)[1] == '1')
 					{
-						echo "<td> <form action='/delete_visit.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
+						echo "<td> <form action='/delete_visit.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . htmlspecialchars($row['id']) . "'> </form> </td>";
 					}
 					echo "</tr>";
 				}

@@ -23,7 +23,7 @@ if (!defined('index_origin'))
 		$motdrow = mysqli_fetch_array($resultmotd);
 
 		$motd = $motdrow['quote'];
-		echo $motd;
+		echo htmlspecialchars($motd);
 	}
 	else {
 		$queryquotes = "SELECT id FROM quotes LIMIT 1;";

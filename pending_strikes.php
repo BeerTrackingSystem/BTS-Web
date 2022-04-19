@@ -31,14 +31,14 @@ echo ">
 while($row = mysqli_fetch_array($resultpendingstrikesadd))
 {
 echo "<tr>";
-echo "<td>" . $row['name'] . "</td>";
-echo "<td>" . $row['date'] . "</td>";
-echo "<td>" . $row['validations_needed'] . "</td>";
-echo "<td>" . $row['validations_acc'] . "</td>";
-echo "<td>" . $row['reason'] . "</td>";
+echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+echo "<td>" . htmlspecialchars($row['validations_needed']) . "</td>";
+echo "<td>" . htmlspecialchars($row['validations_acc']) . "</td>";
+echo "<td>" . htmlspecialchars($row['reason']) . "</td>";
 if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
 {
-	echo "<td> <form action='/del_add_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
+	echo "<td> <form action='/del_add_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . htmlspecialchars($row['id']) . "'> </form> </td>";
 }
 echo "</tr>";
 }
@@ -65,14 +65,14 @@ echo ">
 while($row = mysqli_fetch_array($resultpendingstrikesdel))
 {
 echo "<tr>";
-echo "<td>" . $row['name'] . "</td>";
-echo "<td>" . $row['date'] . "</td>";
-echo "<td>" . $row['validations_needed'] . "</td>";
-echo "<td>" . $row['validations_acc'] . "</td>";
-echo "<td>" . $row['reason'] . "</td>";
+echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+echo "<td>" . htmlspecialchars($row['validations_needed']) . "</td>";
+echo "<td>" . htmlspecialchars($row['validations_acc']) . "</td>";
+echo "<td>" . htmlspecialchars($row['reason']) . "</td>";
 if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
 {
-	echo "<td> <form action='/del_del_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . $row['id'] . "'> </form> </td>";
+	echo "<td> <form action='/del_del_strikes.php' method='post'> <input type='submit' name='id' value='Delete'> <input type='hidden' name='id' value='" . htmlspecialchars($row['id']) . "'> </form> </td>";
 }
 echo "</tr>";
 }

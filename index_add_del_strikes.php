@@ -21,7 +21,7 @@ $resultuser = mysqli_query($db, $queryuser);
                         <?php
                                 while($row = mysqli_fetch_array($resultuser))
                                 {
-                                        echo "<input type='submit' name='user' value='" . $row['name'] . "'>";
+                                        echo "<input type='submit' name='user' value='" . htmlspecialchars($row['name']) . "'>";
                                         echo " ";
                                 }
                         ?>
@@ -39,7 +39,7 @@ $resultuser = mysqli_query($db, $queryuser);
                                 $resultuser = mysqli_query($db, $queryuser);
                                 while($row = mysqli_fetch_array($resultuser))
                                 {
-                                        echo "<input type='submit' name='user' value='" . $row['name'] . "'>";
+                                        echo "<input type='submit' name='user' value='" . htmlspecialchars($row['name']) . "'>";
                                         echo " ";
                                 }
                         ?>

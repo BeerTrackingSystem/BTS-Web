@@ -49,11 +49,11 @@
 		<?php
 			if (!isset($mobile))
 			{
-				echo "<title>$title</title>";
+				echo "<title>" . htmlspecialchars($title) . "</title>";
 			}
 			else
 			{
-				echo "<title>$titlemobile</title>";
+				echo "<title>" . htmlspecialchars($titlemobile) . "</title>";
 			}
 		?>
 		<link rel="Favicon" href="favicon.ico" type="image/x-icon"/>
@@ -67,23 +67,21 @@
 		</style>
 	</head>
 	<body>
-		<p id="version">
-			<?php
+		<?php
+			if (!isset($mobile))
+			{
+				echo "<p id='version'>";
 				$querybtsversion = "SELECT value AS version FROM misc WHERE object = 'general' AND attribute = 'version';";
 	        		$resultbtsversion = mysqli_query($db, $querybtsversion);
 				$btsversion = mysqli_fetch_array($resultbtsversion);
 				#DONOT delete this - You are allowed to change the link to your forked repo, otherwise keepit as it is
-				echo "<a href='https://github.com/MDITSA/BeerTrackingSystem#readme' target='_blank'>BTS: " . $btsversion['version'] . "</a>";
-			?>
-		</p>
-		<?php
-			if (!isset($mobile))
-			{
-				echo "<center><h1>$heading</h1></center>";
+				echo "<a href='https://github.com/MDITSA/BeerTrackingSystem#readme' target='_blank'>BTS: " . htmlspecialchars($btsversion['version']) . "</a>";
+				echo "</p>";
+				echo "<center><h1>" . htmlspecialchars($heading) . "</h1></center>";
 			}
 			else
 			{
-				echo "<center><h1>$headingmobile</h1></center>";
+				echo "<center><h1>" . htmlspecialchars($headingmobile) . "</h1></center>";
 			}
 
 			$querymotdactivation = "SELECT value AS activation FROM misc WHERE object = 'motd' AND attribute = 'activation';";
@@ -140,31 +138,35 @@
 				
 			</td>
 
-                        <td valign="top">
-                                <center>
-                                <table>
-                                        <tr>
-                                                <th><h2>Beer Ranking</h2></th>
-                                        </tr>
-                                </center>
+			<?php
+				if (!isset($mobile))
+				{
+                        		echo "<td valign='top'>
+                                		<center>
+                                		<table>
+	                                        <tr>
+        	                                        <th><h2>Beer Ranking</h2></th>
+                	                        </tr>
+                        		        </center>
 
-					<tr>
-						<td><?php include 'top_ranking.php'; ?></td>
-					</tr>
+						<tr>
+							<td>";
+							include 'top_ranking.php';
+						echo "</td>
+						</tr>
 
-                                        <tr>
-						<td>
-						<?php
-							if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
-                                				{
-		                 					echo '<a href="https://' . $_SERVER[HTTP_HOST] . '/ranking" target="_blank">Komplette Übersicht</a>';
-                                				}
-						?>
-						</td>
-                                        </tr>
-
-                                </table>
-                        </td>
+                                        	<tr>
+							<td>";
+									if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
+                                					{
+		                 						echo '<a href="https://' . $_SERVER[HTTP_HOST] . '/ranking" target="_blank">Komplette Übersicht</a>';
+                                					}
+						echo "</td>
+                                        	</tr>
+                                		</table>
+                        		</td>";
+				}
+			?>
 		</tr>
 	</table>
 		<?php 

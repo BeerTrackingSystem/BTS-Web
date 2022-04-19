@@ -57,7 +57,7 @@ if (!isset($_GET['valcode']))
 				$resultsetvalidations_acc = mysqli_stmt_get_result($prepsetvalidations_acc);
 
 				$validations_left = $validations_left - 1;
-				echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Es fehlen noch $validations_left Validierungen!";
+				echo "Validation wurde mit dem Code " . htmlspecialchars($valcode) . " erfolgreich durchgeführt! Es fehlen noch " . htmlspecialchars($validations_left) . " Validierungen!";
 
 				$querydelcode = "DELETE FROM validate_strikes_del WHERE code = ?;";
 				$prepdelcode = mysqli_prepare($db, $querydelcode);
@@ -129,7 +129,7 @@ if (!isset($_GET['valcode']))
 				$resultvalidatepsd = mysqli_stmt_get_result($prepvalidatepsd);
 
                 		#Message when third/final validation of the pending strike is done
-		                echo "Validation wurde mit dem Code $valcode erfolgreich durchgeführt! Die Strike-Löschung wurde erfolgreich validiert!";
+		                echo "Validation wurde mit dem Code " . htmlspecialchars($valcode) . " erfolgreich durchgeführt! Die Strike-Löschung wurde erfolgreich validiert!";
 
 			 	$querydeldelcodedel = "DELETE vdsd FROM validate_del_strikes_del vdsd INNER JOIN pending_del_strikes_del pdsd ON pdsd.id = vdsd.pdsdid INNER JOIN validate_strikes_del vsd ON pdsd.psdid = vsd.psdid WHERE vsd.code = ?;";
 				$prepdeldelcodedel = mysqli_prepare($db, $querydeldelcodedel);

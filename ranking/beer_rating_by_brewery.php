@@ -31,7 +31,7 @@ if (!defined('index_origin'))
 			if ($firsttable == true)
 			{
 				echo "<br>";
-				echo "<h3 style='display:inline;'>" . $brewery . "</h3>";
+				echo "<h3 style='display:inline;'>" . htmlspecialchars($brewery) . "</h3>";
 				echo "</td></tr><tr><td style='vertical-align:top'>";
 			}
 			else
@@ -60,10 +60,10 @@ if (!defined('index_origin'))
 		while($row = mysqli_fetch_array($resultratings))
 		{
 			echo "<tr>";
-			echo "<td>" . $beername . "</td>";
-			echo "<td>" . $row['style'] . "</td>";
-			echo "<td>" . $row['username'] . "</td>";
-			echo "<td><center>" . $row['rating'] . "</center></td>";
+			echo "<td>" . htmlspecialchars($beername) . "</td>";
+			echo "<td>" . htmlspecialchars($row['style']) . "</td>";
+			echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+			echo "<td><center>" . htmlspecialchars($row['rating']) . "</center></td>";
 			echo "</tr>";
 		}
 
@@ -78,7 +78,7 @@ if (!defined('index_origin'))
 		echo "<td colspan='3'>Overall Rating</td>";
 		while ($row = mysqli_fetch_array($resultaverage))
 		{
-			echo "<td>" . $row['average'] .  "</td>";
+			echo "<td>" . htmlspecialchars($row['average']) .  "</td>";
 		}
 		echo "</tr>
 		</tfoot>

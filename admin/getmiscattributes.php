@@ -12,7 +12,7 @@ $resultgetattributes = mysqli_stmt_get_result($prepgetattributes);
   	<?php
 		while($row = mysqli_fetch_array($resultgetattributes))
 		{
-			echo "<option value='" . $row['attribute'] . "'>" . $row['attribute'] . "</option>";
+			echo "<option value='" . htmlspecialchars($row['attribute']) . "'>" . htmlspecialchars($row['attribute']) . "</option>";
 		}
 	?>
 </select>

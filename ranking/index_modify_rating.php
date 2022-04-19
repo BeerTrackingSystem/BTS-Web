@@ -27,7 +27,7 @@ if (!defined('index_origin'))
 
                                                         while($row = mysqli_fetch_array($resultgetbreweries))
                                                         {
-                                                                echo "<option value='" . $row['breweryid'] . "'>" . $row['brewery'] . "</option>";
+                                                                echo "<option value='" . htmlspecialchars($row['breweryid']) . "'>" . htmlspecialchars($row['brewery']) . "</option>";
                                                         }
                                                 ?>
                                         </select>
@@ -47,7 +47,7 @@ if (!defined('index_origin'))
                                                         $resultgetminmaxrate = mysqli_query($db, $querygetminmaxrate);
 							$minmax_rate = mysqli_fetch_array($resultgetminmaxrate);
 						?>
-							<input type='number' name='rating' min='<?php echo $minmax_rate['min_rate'] ?>' max='<?php echo $minmax_rate['max_rate'] ?>' style='width: 50px;'>
+							<input type='number' name='rating' min='<?php echo htmlspecialchars($minmax_rate['min_rate']) ?>' max='<?php echo htmlspecialchars($minmax_rate['max_rate']) ?>' style='width: 50px;'>
                                                 <input type='submit' value='Submit'>
                                         </td>
                                 </tr>

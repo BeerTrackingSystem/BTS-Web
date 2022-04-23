@@ -1,47 +1,69 @@
 # Beer Tracking System
-Track your beer consumption!
+## Overview
+BTS is a tool for tracking spilled beer, keep an eye on the current stock, rate beers and stay in touch with friends/collegues/... who maybe moved away.
 ## Features
 - Track spilled beer!
-> Everytime someone spills beer, he/she/it gets a strike. After 5 strikes he/she/it has to buy beer for the group.
+    > - Everytime someone spills beer, he/she/it gets a strike (amount customizable). 
+    > - Wedding? 50th Bday? Special events getting a special amount of strikes.
 
-> If he/she/it gets new beer, strikes can be deleted.
-- Overview of the current available beer amount!
-> Don't get surprised by an empty beer stock.
+- Track the date when someone brought beer
+    > Important as soon as the stock goes empty and it's up to decide who has to refill
+
+- Track the current stock
+    > Don't get surprised by an empty beer stock.
+
 - Email validation needed to add/del strikes
-- Display a daily changing MotD
-- Planned features are tracked in the issues section
-- Veterans!
-> When people are not available anymore, they can be moved to veterans
-> Veterans section with login to add a visit when they are in the area
-- Admin-Panel with dozens of features!
-- Seperated mobile view for the basic use
+    > That's a serious business, you don't joke about beer! Strikes and Deletions have to be verified by the others!
 
-**Works in general with alcohol!**
+- Get motivated to drink a beer by reading the Message of the Day
+    > Add custom quotes which automatically change daily.
+
+- Veterans!
+    > Stay in touch with friends and others and get notified when they are in your area!
+
+- Admin-Panel with dozens of features
+    > You can edit/modify basically everything!
+
+- Seperated mobile view for the basic use
+    > Fewer views so you get the essential informations on the go.
+
+**Doesn't have to be beer! Works in general with alcohol!**
 
 ## Installation
 ### Requirements
 - Webserver (no matter which)
-- Mysql/MariaDB (else you have to rewrite the "php->mysqli-query" connects)
-- PHP7
-- Just a lil bit knowledge in what you are doing, but seriously it's plain html/php... you can't do much wrong
+- Mysql/MariaDB (else you have to rewrite ally "php->mysqli" queries)
+- PHP7 (8 not tested yet)
+- Just a lil bit knowledge in what you are doing, but it's plain html/php/javascript...
 
-### Installation
-1. Create database and database-user with grant on that database (name it yourway)
-2. Set event_scheduler=on in mysql/mariadb config
-3. Edit the database name in db_strucuture_X.X_base.sql to your needs
-4. Push the db_structure.sql file into your database. All required tables will be created
-5. Configure your webserver your way and set "index.php" as index page and for /admin the admin.php as index page
-6. Maybe secure the admin section, e.g. with htaccess
-7. Copy all files (except .sql file) into your web-root directory
-8. Modify the db.inc.php file (exchange database credentials with yours)
-9. Edit generate... and validate... files and change the "echo" outputs to your needs 
-10. Ofc you can exchange the favicon
-11. Set up the basics on the admin panel (create user, add quote, change titles/headings)
-12. Open a beer and try it out!
+### Tasks
+1. Create a database and database-user with grant on that database (name it yourway)
+2. Save database credentials in db.inc.php
+3. Set "event_scheduler=on" in mysql/mariadb serverconfig - else the áuthorized session cleanup won't work
+4. Push the db_X.0_structure.sql file into your database. All required tables will be created
+5. Push the db_X.0_values.sql file into your database. All basic values will be inserted. You may edit the values before you insert them, otherwise you can set them later on the admin panel
+6. Configure your webserver and set index:
+    - main page = index.php
+    - ranking page = ranking/index.php
+    - admin page = admin/admin.php
+7. Secure the admin section, e.g. with htaccess!
+8. Copy all files (except .sql files) into your web-root directory
+9. You may remove the "Support Me" button, but not modify it!
+10. Edit generate... and validate... files and change the "echo" outputs to your needs
+11. You may change the favicon!
+12. Set up the basics on the admin panel (create user, add quote, change titles/headings, add breweries/beers)
+13. Open a beer and try it out!
 
+## Update
+1. Backup directory and database
+2. Unzip new files in the directory
+3. If there are database changes, i'll supply a "db_update_X.X-X.X.sql" file. Push the needed file into your database. Check your current version either on the top/left of the main page or look it up in the misc table
+4. Open a beer and try it out!
 
 ## Screenshots
-![Current website view](https://image.prntscr.com/image/y1VPM7WmQQmHTgtqb8vv-A.png)
+![Main page](https://imgur.com/8iO5YbP.png)
+![Ranking page](https://imgur.com/N1zA0ED.png)
+![Admin panel](https://imgur.com/IHE4uOu.png)
 
 ## License
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)

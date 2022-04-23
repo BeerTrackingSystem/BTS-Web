@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `auth_sessions` (
   PRIMARY KEY (`id`),
   KEY `fk_auth_sessions_user` (`userid`),
   CONSTRAINT `fk_auth_sessions_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `beers` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -25,14 +25,14 @@ CREATE TABLE IF NOT EXISTS `beers` (
   PRIMARY KEY (`id`),
   KEY `brewery` (`breweryid`) USING BTREE,
   CONSTRAINT `brewery` FOREIGN KEY (`breweryid`) REFERENCES `breweries` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `breweries` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DELIMITER //
 CREATE EVENT `clear_sessions` ON SCHEDULE EVERY 30 SECOND STARTS '2022-04-15 01:16:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `current_stock` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `amount` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `current_strikes` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `current_strikes` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `current_strikes_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `misc` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `misc` (
   `value` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `motd` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `motd` (
   PRIMARY KEY (`id`),
   KEY `fk_motd_quotes` (`quoteid`),
   CONSTRAINT `fk_motd_quotes` FOREIGN KEY (`quoteid`) REFERENCES `quotes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=882 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `pending_del_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `pending_del_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_add_pending_strikes_add` (`psaid`),
   CONSTRAINT `fk_pending_del_strikes_add_pending_strikes_add` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `pending_del_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `pending_del_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `fk_pending_del_strikes_del_pending_strikes_del` (`psdid`),
   CONSTRAINT `fk_pending_del_strikes_del_pending_strikes_del` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `pending_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `pending_strikes_add` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_add_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `pending_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -125,14 +125,14 @@ CREATE TABLE IF NOT EXISTS `pending_strikes_del` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   CONSTRAINT `pending_strikes_del_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `quotes` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `quote` varchar(255) DEFAULT NULL,
   `lastused` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `ranking_beers` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `ranking_beers` (
   KEY `beer` (`beerid`),
   CONSTRAINT `beer` FOREIGN KEY (`beerid`) REFERENCES `beers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_pay` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `validate_del_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `validate_del_strikes_add` (
   KEY `fk_validate_del_strikes_add_user` (`userid`),
   CONSTRAINT `fk_validate_del_strikes_add_pending_del_strikes_add` FOREIGN KEY (`pdsaid`) REFERENCES `pending_del_strikes_add` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_validate_del_strikes_add_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `validate_del_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `validate_del_strikes_del` (
   KEY `fk_validate_del_strikes_del_user` (`userid`),
   CONSTRAINT `fk_validate_del_strikes_del_pending_del_strikes_del` FOREIGN KEY (`pdsdid`) REFERENCES `pending_del_strikes_del` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_validate_del_strikes_del_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `validate_strikes_add` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `validate_strikes_add` (
   KEY `fk_validate_strikes_add_user` (`userid`),
   CONSTRAINT `fk_validate_strikes_add_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `validate_strikes_add_ibfk_2` FOREIGN KEY (`psaid`) REFERENCES `pending_strikes_add` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `validate_strikes_del` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `validate_strikes_del` (
   KEY `fk_validate_strikes_del_user` (`userid`),
   CONSTRAINT `fk_validate_strikes_del_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `validate_strikes_del_ibfk_2` FOREIGN KEY (`psdid`) REFERENCES `pending_strikes_del` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `veterans` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `veterans` (
   PRIMARY KEY (`id`),
   KEY `fk_veterans_user` (`userid`),
   CONSTRAINT `fk_veterans_user` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `visits` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `visits` (
   PRIMARY KEY (`id`),
   KEY `fk__veterans` (`veteranid`),
   CONSTRAINT `fk__veterans` FOREIGN KEY (`veteranid`) REFERENCES `veterans` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

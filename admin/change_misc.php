@@ -1,7 +1,8 @@
 <?php
 if ((empty($_POST['newvalue']) && $_POST['newvalue'] != 0) || $_POST['miscobject'] == 'blank' || $_POST['miscattribute'] == 'blank' ||$_POST['miscattribute'] == 'version')
 {
-    die('<h1>Direct File Access Prohibited</h1>');
+	http_response_code(404);
+	die();
 }
 ?>
 <?php

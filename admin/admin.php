@@ -126,6 +126,53 @@
                                  </table>
                         </form>
                 </td>
+
+		<td valign="top">
+			<form action="./add_key.php" method="post">
+                                Add Key:
+                                <br><br>
+                                <table>
+                                <tr>
+                                        <td>Description:</td>
+                                        <td><input type='text' name='description' style='width: 250px;' required></td>
+                                </tr>
+                                <tr>
+                                        <td>Key:</td>
+					<td>
+						<input type='text' id='generatedKey' name='generatedKey' style='width: 250px;' required readonly>
+						<input type='button' id='generateKey' name='generateKey' value='Generate'>
+					</td>
+                                </tr>
+
+                                <tr>
+                                </tr>
+
+                                <tr>
+                                        <td colspan='2'><input type='submit' value='Create'></td>
+                                </tr>
+                                </table>
+                        </form>
+			<form action="./delete_key.php" method="post">
+				Delete Key:
+			        <table>
+		                <tr>
+					<select name='keyid'>
+					<option value="blank" selected>Select the key</option>
+						<?php
+							$querygetkeys = "SELECT id, description FROM api_keys;";
+							$resultgetkeys = mysqli_query($db, $querygetkeys);
+	
+							while($row = mysqli_fetch_array($resultgetkeys))
+							{
+								echo "<option value='" . htmlspecialchars($row['id']) . "'>" .  htmlspecialchars($row['description']) . "</option>" ;
+							}
+						?>
+					</select>
+                        		<input type='submit' value='Delete'>
+                		</tr>
+       				 </table>
+			</form>
+		</td>
 	</tr>
 	<tr>
 		<td valign="top">
@@ -183,7 +230,7 @@
 			</form>
 		</td>
 		
-		<td valign="top">
+		<td valign="top" colspan='2'>
 			<form action="./resend_codes.php" method="post">
                                 Resend Codes:
                                 <table border='0'>
@@ -334,6 +381,10 @@
       getmiscvalues();
     });
 
+    $('#generateKey').on('click',function(){
+      generateString();
+    });
+
     function getmiscattributes(){
       var miscobject = $('#miscobject').val();
 
@@ -360,11 +411,20 @@
           }
       });
       };
+
+    function generateString(){
+      $.ajax({
+          url:'generatestring.php',
+          success:function(data){
+            $('#generatedKey').val(data);
+          }
+      });
+      };
   });
 </script>
 		</td>
 		
-		<td valign="top">
+		<td valign="top" colspan='2'>
                         <form action="./modify_user.php" method="post">
                                 Modify user/veteran data:
                                 <br><br>
@@ -501,7 +561,7 @@
                                         <input type='submit' name='submit' value='Validate'></center>
                         </form>
 		</td>
-		<td valign="top">
+		<td valign="top" colspan='2'>
                 	Modify brewery/beer data:
 				<br><br>
                                 <table>

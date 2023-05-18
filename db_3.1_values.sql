@@ -23,7 +23,7 @@ INSERT INTO `misc` (`id`, `object`, `attribute`, `value`, `description`) VALUES
 	(13, 'strike_add', 'amount_event', '5', 'Amount of a event strike'),
 	(14, 'strike_del', 'amount_normal', '3', 'Amount of a normal deletion'),
 	(15, 'strike_del', 'amount_event', '5', 'Amount of a event deletion'),
-	(16, 'general', 'version', 'v3.0', 'BTS version');
+	(16, 'general', 'version', 'v3.1', 'BTS version');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

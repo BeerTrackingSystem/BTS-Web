@@ -1,7 +1,8 @@
 <?php
 if (!isset($_POST['delcodes']) && !isset($_POST['addcodes']) && !isset($_POST['deladdcodes']) && !isset($_POST['deldelcodes']))
 {
-    die('<h1>Direct File Access Prohibited</h1>');
+	http_response_code(404);
+	die();
 }
 ?>
 <?php

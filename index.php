@@ -129,10 +129,13 @@
 
 				<form action="/update_stock.php" method="post">
                          		<?php
-						echo "<br>";
-						echo "<input type='number' name='newstock' style='width: 50px;'>";
-						echo "<br>";
-                                        	echo "<input type='submit' value='Update'>";
+						if (check_login($sessionid)[0] && check_login($sessionid)[1] == '0')
+						{
+							echo "<br>";
+							echo "<input type='number' name='newstock' style='width: 50px;'>";
+							echo "<br>";
+                	                        	echo "<input type='submit' value='Update'>";
+						}
                         		?>
                 		</form>
 				
@@ -187,15 +190,6 @@
 			include 'veterans_visit.php';
 		?>
 	</center>
-
-                <script src='support/overlay-widget.js'></script>
-                <script>
-                        kofiWidgetOverlay.draw('mditsa', {
-                        'type': 'floating-chat',
-                        'floating-chat.donateButton.text': 'Support me',
-                        'floating-chat.donateButton.background-color': '#0011ff',
-                        'floating-chat.donateButton.text-color': '#fff'
-                        });
-                </script>
+		<a href='https://ko-fi.com/G2G5BMAG1' target='_blank'><img height='36' style='border:0px;height:30px;' src='support/kofi1.png' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 	</body>
 </html>

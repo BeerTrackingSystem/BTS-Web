@@ -1,7 +1,8 @@
 <?php
 if (empty($_POST['quoteid']))
 {
-    die('<h1>Direct File Access Prohibited</h1>');
+	http_response_code(404);
+	die();
 }
 ?>
 <?php

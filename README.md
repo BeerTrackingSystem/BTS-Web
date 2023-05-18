@@ -46,6 +46,7 @@ BTS is a tool for tracking spilled beer, keep an eye on the current stock, rate 
     - main page = index.php
     - ranking page = ranking/index.php
     - admin page = admin/admin.php
+    - api page = api/api.php
 7. Secure the admin section, e.g. with htaccess!
 8. Copy all files (except .sql files) into your web-root directory
 9. You may remove the "Support Me" button, but not modify it!

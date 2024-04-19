@@ -5,3 +5,4 @@ CREATE TABLE api_keys (
   description varchar(255) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+UPDATE misc SET value = "v3.1" WHERE object = "general" AND attribute = "version";
